@@ -1,6 +1,7 @@
 import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
+import ThemeToggle from "@/components/theme-toggle";
 
 export default function Home() {
   return (
@@ -28,6 +29,10 @@ export default function Home() {
             />
           </a>
         </div>
+      </div>
+
+      <div className="ml-auto">
+        <ThemeToggle />
       </div>
 
       <Button variant="outline" size="lg">
