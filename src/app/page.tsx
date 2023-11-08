@@ -48,6 +48,8 @@ export default async function Home() {
         Click
       </Button>
 
+      <Button>Hello My Friend</Button>
+
       <div className="flex space-x-6">
         <LoginLink>Log In</LoginLink>
         <RegisterLink>Sign Up</RegisterLink>
