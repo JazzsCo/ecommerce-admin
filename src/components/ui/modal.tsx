@@ -30,8 +30,8 @@ const Modal: FC<ModalProps> = ({
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
+          <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
-        <DialogDescription>{description}</DialogDescription>
         <div className="p-2">{children}</div>
       </DialogContent>
     </Dialog>

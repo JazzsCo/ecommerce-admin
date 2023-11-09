@@ -9,7 +9,15 @@ import Modal from "@/components/ui/modal";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useStoreModal } from "@/hook/use-store-modal";
-import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 
 const formSchema = z.object({
   name: z.string().min(1),
@@ -54,6 +62,7 @@ const StoreModal = () => {
             control={form.control}
             render={({ field }) => (
               <FormItem>
+                <FormLabel>Name</FormLabel>
                 <FormControl>
                   <Input
                     {...field}
@@ -61,6 +70,7 @@ const StoreModal = () => {
                     placeholder="Shoe store 👟"
                   />
                 </FormControl>
+                <FormMessage />
               </FormItem>
             )}
           />
