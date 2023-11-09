@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
-import RootNav from "@/components/nav/root-nav";
 import { ThemeProvider } from "@/provider/theme-provider";
+import StoreModalProvider from "@/provider/store-modal-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,7 +26,10 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="p-6">{children}</div>
+          <div className="p-6">
+            <StoreModalProvider />
+            {children}
+          </div>
         </ThemeProvider>
       </body>
     </html>
