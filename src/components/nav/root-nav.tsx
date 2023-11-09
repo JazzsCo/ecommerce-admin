@@ -5,15 +5,19 @@ import {
   getKindeServerSession,
 } from "@kinde-oss/kinde-auth-nextjs/dist/server";
 
+import CurrentUserAvatar from "@/components/current-user-avatar";
+
 const RootNav = async () => {
   const { getUser, isAuthenticated } = getKindeServerSession();
   const user = await getUser();
+
+  console.log("USER", user);
 
   return (
     <nav>
       <div className="flex flex-row justify-end space-x-5">
         {(await isAuthenticated()) ? (
-          <div>{JSON.stringify(user)}</div>
+          <CurrentUserAvatar user={user} />
         ) : (
           <>
             <LoginLink>Log In</LoginLink>
