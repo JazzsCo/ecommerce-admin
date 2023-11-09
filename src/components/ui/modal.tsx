@@ -32,7 +32,7 @@ const Modal: FC<ModalProps> = ({
           <DialogTitle>{title}</DialogTitle>
         </DialogHeader>
         <DialogDescription>{description}</DialogDescription>
-        <DialogFooter>{children}</DialogFooter>
+        <div className="p-2">{children}</div>
       </DialogContent>
     </Dialog>
   );
