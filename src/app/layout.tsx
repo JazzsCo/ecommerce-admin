@@ -26,10 +26,8 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="p-6">
-            <StoreModalProvider />
-            {children}
-          </div>
+          <StoreModalProvider />
+          {children}
         </ThemeProvider>
       </body>
     </html>

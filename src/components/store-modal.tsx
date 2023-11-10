@@ -51,7 +51,7 @@ const StoreModal = () => {
   return (
     <Modal
       title="Create Store"
-      description="Test description to test"
+      description="Add a new store to manage your products and categories."
       isOpen={storeModal.isOpen}
       onClose={storeModal.onClose}
     >
