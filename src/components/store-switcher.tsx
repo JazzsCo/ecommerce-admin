@@ -39,7 +39,7 @@ const StoreSwitcher: FC<StoreSwitcherProps> = ({ items }) => {
 
   const onStoreSelect = (store: Store) => {
     setOpen(false);
-    router.push(`/${store.id}`);
+    router.push("/" + store.id);
   };
 
   const onCreateStore = () => {

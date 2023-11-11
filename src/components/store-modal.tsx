@@ -45,7 +45,7 @@ const StoreModal = () => {
 
       form.reset();
       storeModal.onClose();
-      router.push(`/${store.data?.id}`);
+      router.push("/" + store.data?.id);
     } catch (error) {
       console.log("ERROR", error);
     } finally {
@@ -89,7 +89,7 @@ const StoreModal = () => {
               Cancel
             </Button>
             <Button
-              variant="default"
+              variant="secondary"
               size="lg"
               type="submit"
               disabled={loading}

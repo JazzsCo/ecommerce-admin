@@ -17,7 +17,7 @@ const CheckUserStore: FC<CheckUserStoreProps> = ({ storeId }) => {
     <div>
       {storeId ? (
         <div>
-          <Link href={`/${storeId}`}>
+          <Link href={"/" + storeId}>
             <Button>Go to over view</Button>
           </Link>
         </div>

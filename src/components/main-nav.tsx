@@ -11,32 +11,30 @@ const MainNav = () => {
   const routes = [
     {
       name: "Overview",
-      href: `/${params.storeId}`,
-      active: pathname === `/${params.storeId}`,
+      href: "/" + params.storeId,
+      active: pathname === "/" + params.storeId,
     },
     {
       name: "Billboard",
-      href: `/${params.storeId}/billboard`,
-      active: pathname === `/${params.storeId}/billboard`,
+      href: "/" + params.storeId + "/billboard",
+      active: pathname === "/" + params.storeId + "/billboard",
     },
     {
       name: "Settings",
-      href: `/${params.storeId}/settings`,
-      active: pathname === `/${params.storeId}/settings`,
+      href: "/" + params.storeId + "/settings",
+      active: pathname === "/" + params.storeId + "/settings",
     },
   ];
 
   return (
-    <div className="flex items-center space-x-2">
+    <div className="flex items-center space-x-2 lg:space-x-4">
       {routes.map((route) => (
         <Link
           key={route.href}
           href={route.href}
           className={cn(
-            "text-sm tracking-tight hover:text-slate-700 dark:hover:text-slate-300 font-semibold",
-            route.active
-              ? "text-slate-700 dark:text-slate-200 font-bold"
-              : "text-black/70 dark:text-white/60"
+            "text-sm -tracking-tighter font-semibold hover:opacity-70",
+            route.active ? "opacity-70" : ""
           )}
         >
           {route.name}

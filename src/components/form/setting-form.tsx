@@ -97,7 +97,7 @@ const SettingForm: FC<SettingFormProps> = ({ initialData }) => {
 
       <ApiAlert
         title="NEXT_PUBLIC_API_URL"
-        description={`${origin}/api/stores/${params.storeId}`}
+        description={origin + "/api/stores/" + params.storeId}
         role="admin"
       />
     </div>
