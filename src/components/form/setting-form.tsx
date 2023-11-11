@@ -86,14 +86,14 @@ const SettingForm: FC<SettingFormProps> = ({ initialData }) => {
             />
           </div>
           <div className="flex items-center justify-end">
-            <Button type="submit" size="lg">
-              Save
+            <Button type="submit" size="lg" variant="secondary">
+              Update
             </Button>
           </div>
         </form>
       </Form>
 
-      <Separator />
+      <Separator className="h-[0.5px]" />
 
       <ApiAlert
         title="NEXT_PUBLIC_API_URL"

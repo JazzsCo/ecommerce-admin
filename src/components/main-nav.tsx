@@ -33,9 +33,9 @@ const MainNav = () => {
           key={route.href}
           href={route.href}
           className={cn(
-            "text-sm tracking-tight hover:text-slate-700 dark:hover:text-slate-300 hover:font-semibold",
+            "text-sm tracking-tight hover:text-slate-700 dark:hover:text-slate-300 font-semibold",
             route.active
-              ? "text-slate-700 dark:text-slate-300 font-semibold"
+              ? "text-slate-700 dark:text-slate-200 font-bold"
               : "text-black/70 dark:text-white/60"
           )}
         >

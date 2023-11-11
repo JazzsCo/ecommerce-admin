@@ -78,7 +78,7 @@ const StoreModal = () => {
             <Button variant="outline" size="lg" onClick={storeModal.onClose}>
               Cancel
             </Button>
-            <Button type="submit" size="lg">
+            <Button variant="secondary" type="submit" size="lg">
               Create
             </Button>
           </div>

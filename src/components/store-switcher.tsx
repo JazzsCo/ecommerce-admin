@@ -73,8 +73,9 @@ const StoreSwitcher: FC<StoreSwitcherProps> = ({ items }) => {
       </PopoverTrigger>
       <PopoverContent className="w-[180px] p-0">
         <Command>
+          <CommandInput placeholder="Search a store" />
+          <CommandEmpty>No results found.</CommandEmpty>
           <CommandList>
-            <CommandInput placeholder="Search a store" />
             <CommandGroup>
               {items.map((item) => (
                 <CommandItem
@@ -99,11 +100,10 @@ const StoreSwitcher: FC<StoreSwitcherProps> = ({ items }) => {
             <CommandGroup>
               <CommandItem
                 onSelect={() => onCreateStore()}
-                className="flex items-center justify-between"
+                className="flex items-center space-x-6"
               >
                 <PlusCircle className="w-4 h-4" />
                 <h3>Create Store</h3>
-                <div></div>
               </CommandItem>
             </CommandGroup>
           </CommandList>
