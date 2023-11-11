@@ -1,5 +1,6 @@
-import SettingForm from "@/components/form/setting-form";
 import React from "react";
+
+import SettingForm from "@/components/form/setting-form";
 
 export default function SettingsPage() {
   const store = {

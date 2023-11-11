@@ -4,10 +4,11 @@ import * as z from "zod";
 import { FC } from "react";
 import { Store } from "@prisma/client";
 import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import Heading from "@/components/heading";
+import ApiAlert from "@/components/api-alert";
 import DeleteButton from "@/components/delete-button";
 import {
   Form,
@@ -17,6 +18,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { useOrigin } from "@/hook/use-origin";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -31,6 +33,8 @@ const formSchema = z.object({
 
 const SettingForm: FC<SettingFormProps> = ({ initialData }) => {
   const router = useRouter();
+  const origin = useOrigin();
+  const params = useParams();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -52,12 +56,14 @@ const SettingForm: FC<SettingFormProps> = ({ initialData }) => {
   };
 
   return (
-    <div className="flex flex-col space-y-3">
+    <div className="space-y-3">
       <div className="flex items-center justify-between">
         <Heading title="Settings" description="Manage your store setting 🦭" />
         <DeleteButton />
       </div>
+
       <Separator />
+
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <div className="grid grid-cols-3 lg:grid-cols-5 gap-6">
@@ -86,6 +92,14 @@ const SettingForm: FC<SettingFormProps> = ({ initialData }) => {
           </div>
         </form>
       </Form>
+
+      <Separator />
+
+      <ApiAlert
+        title="NEXT_PUBLIC_API_URL"
+        description={`${origin}/api/stores/${params.storeId}`}
+        role="admin"
+      />
     </div>
   );
 };

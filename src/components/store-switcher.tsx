@@ -93,7 +93,6 @@ const StoreSwitcher: FC<StoreSwitcherProps> = ({ items }) => {
                 </CommandItem>
               ))}
             </CommandGroup>
-            <CommandEmpty placeholder="No store found." />
           </CommandList>
           <CommandSeparator />
           <CommandList>
