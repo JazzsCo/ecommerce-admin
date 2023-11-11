@@ -7,6 +7,7 @@ import CurrentUserAvatar from "@/components/current-user-avatar";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/dist/server";
 import MainNav from "@/components/main-nav";
 import { Store } from "@prisma/client";
+import { redirect } from "next/navigation";
 
 export default async function OverViewLayout({
   children,
@@ -19,29 +20,17 @@ export default async function OverViewLayout({
 
   const user = await getUser();
 
-  // const store = await prisma.store.findFirst({
-  //   where: {
-  //     id: params.storeId,
-  //     userId: user?.id,
-  //   },
-  // });
+  const store = await prisma.store.findMany({
+    where: {
+      userId: user?.id,
+    },
+  });
 
-  const store: Store[] = [
-    {
-      id: "dsds",
-      name: "Shoe store",
-      userId: "sdksdsl",
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    },
-    {
-      id: "dsdsd",
-      name: "Shirt store",
-      userId: "sdksdsl",
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    },
-  ];
+  const checkStoreId = store.find((item) => item.id === params.storeId);
+
+  if (!checkStoreId) {
+    redirect("/landing");
+  }
 
   return (
     <nav>

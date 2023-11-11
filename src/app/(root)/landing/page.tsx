@@ -1,18 +1,25 @@
-"use client";
-
 import React from "react";
+import prisma from "@/lib/prisma";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/dist/server";
 
-import { Button } from "@/components/ui/button";
-import { useStoreModal } from "@/hook/use-store-modal";
+import CheckUserStore from "@/components/check-user-store";
 
-export default function LandingPage() {
-  const storeModal = useStoreModal();
+export default async function LandingPage() {
+  const { getUser } = getKindeServerSession();
+
+  const user = await getUser();
+
+  const store = await prisma.store.findFirst({
+    where: {
+      userId: user?.id,
+    },
+  });
 
   return (
     <div>
       LandingPage
       <div>
-        <Button onClick={storeModal.onOpen}>Create Store</Button>
+        <CheckUserStore storeId={store?.id} />
       </div>
     </div>
   );

@@ -11,8 +11,6 @@ const RootNav = async () => {
   const { getUser, isAuthenticated } = getKindeServerSession();
   const user = await getUser();
 
-  console.log("USER", user);
-
   return (
     <nav>
       <div className="flex flex-row justify-end space-x-5">

@@ -1,6 +1,7 @@
 "use client";
 
 import * as z from "zod";
+import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -38,9 +39,13 @@ const StoreModal = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      console.log("VALUES", values);
+      const store = await axios.post("/api/stores", {
+        name: values.name,
+      });
 
       form.reset();
+      storeModal.onClose();
+      router.push(`/${store.data?.id}`);
     } catch (error) {
       console.log("ERROR", error);
     } finally {
@@ -75,10 +80,20 @@ const StoreModal = () => {
             )}
           />
           <div className="flex items-center justify-end space-x-2 mt-2">
-            <Button variant="outline" size="lg" onClick={storeModal.onClose}>
+            <Button
+              variant="outline"
+              size="lg"
+              disabled={loading}
+              onClick={storeModal.onClose}
+            >
               Cancel
             </Button>
-            <Button variant="secondary" type="submit" size="lg">
+            <Button
+              variant="default"
+              size="lg"
+              type="submit"
+              disabled={loading}
+            >
               Create
             </Button>
           </div>
