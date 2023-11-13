@@ -1,31 +1,34 @@
-"use client";
-
-import { useRouter } from "next/navigation";
-
-import Heading from "@/components/heading";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
+import BillboardClient from "@/components/client/billboard-client";
 
 const BillboardsPage = ({ params }: { params: { storeId: string } }) => {
-  const router = useRouter();
+  const billboard = [
+    {
+      id: "string",
+      name: "shirt",
+      imageUrl: "string",
+      storeId: "string",
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    },
+    {
+      id: "string",
+      name: "book",
+      imageUrl: "string",
+      storeId: "string",
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    },
+    {
+      id: "string",
+      name: "pen",
+      imageUrl: "string",
+      storeId: "string",
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    },
+  ];
 
-  return (
-    <div className="p-4 px-6 space-y-3">
-      <div className="flex items-center justify-between">
-        <Heading title="Billboard(0)" description="Manage yours billboard 🫤" />
-        <Button
-          type="button"
-          onClick={() =>
-            router.push("/" + params.storeId + "/billboards/create-new")
-          }
-        >
-          Create New
-        </Button>
-      </div>
-
-      <Separator />
-    </div>
-  );
+  return <BillboardClient items={billboard} />;
 };
 
 export default BillboardsPage;

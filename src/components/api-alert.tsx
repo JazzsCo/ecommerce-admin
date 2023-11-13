@@ -23,6 +23,10 @@ const textMap: Record<ApiAlertProps["role"], BadgeProps["variant"]> = {
 };
 
 const ApiAlert: FC<ApiAlertProps> = ({ title, description, role }) => {
+  const onCopy = () => {
+    navigator.clipboard.writeText(description);
+  };
+
   return (
     <Alert className="p-2 px-3">
       <div className="flex items-center space-x-3">
@@ -34,7 +38,7 @@ const ApiAlert: FC<ApiAlertProps> = ({ title, description, role }) => {
         <code className="p-1 px-2 rounded text-sm font-semibold bg-muted">
           {description}
         </code>
-        <Button variant="outline" size="icon">
+        <Button type="button" variant="outline" size="icon" onClick={onCopy}>
           <Copy className="w-4 h-4" />
         </Button>
       </AlertDescription>
