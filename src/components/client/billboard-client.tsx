@@ -13,6 +13,7 @@ import {
   billboardColumn,
 } from "../column/billboard-column";
 import { DataTable } from "../ui/data-table";
+import ApiAlert from "../api-alert";
 
 interface BillboardClientProps {
   items: Billboard[];
@@ -25,7 +26,7 @@ const BillboardClient: FC<BillboardClientProps> = ({ items }) => {
   const billboardColumnData: BillboardColumnProps[] = items.map((item) => ({
     id: item.id,
     name: item.name,
-    date: format(item.createdAt, "MMM do y"),
+    date: format(item.createdAt, "MMM do, y"),
   }));
 
   return (
@@ -43,11 +44,42 @@ const BillboardClient: FC<BillboardClientProps> = ({ items }) => {
       </div>
 
       <Separator />
+
       <DataTable
         searchKey="name"
         columns={billboardColumn}
         data={billboardColumnData}
       />
+
+      <Separator className="h-[0.5px]" />
+      <>
+        <Heading title="Api List" description="Manage yours api list" />
+        <ApiAlert
+          title="GET"
+          description={origin + "/api/stores/" + params.storeId}
+          role="user"
+        />
+        <ApiAlert
+          title="GET"
+          description={origin + "/api/stores/" + params.storeId}
+          role="user"
+        />
+        <ApiAlert
+          title="POST"
+          description={origin + "/api/stores/" + params.storeId}
+          role="admin"
+        />
+        <ApiAlert
+          title="POST"
+          description={origin + "/api/stores/" + params.storeId}
+          role="admin"
+        />
+        <ApiAlert
+          title="DELETE"
+          description={origin + "/api/stores/" + params.storeId}
+          role="admin"
+        />
+      </>
     </div>
   );
 };

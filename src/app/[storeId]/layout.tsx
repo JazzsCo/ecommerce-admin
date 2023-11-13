@@ -20,35 +20,35 @@ export default async function OverViewLayout({
 
   const user = await getUser();
 
-  // const store = await prisma.store.findMany({
-  //   where: {
-  //     userId: user?.id,
-  //   },
-  // });
+  const store = await prisma.store.findMany({
+    where: {
+      userId: user?.id,
+    },
+  });
 
-  // const checkStoreId = store.find((item) => item.id === params.storeId);
+  const checkStoreId = store.find((item) => item.id === params.storeId);
 
-  // if (!checkStoreId) {
-  //   redirect("/landing");
-  // }
+  if (!checkStoreId) {
+    redirect("/landing");
+  }
 
   // TEST MODE
-  const store: Store[] = [
-    {
-      id: "dsds",
-      name: "Shoe store",
-      userId: "dlsdjsd",
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    },
-    {
-      id: "dsdsdsdskkd",
-      name: "Sun glass store",
-      userId: "dlsdjsd",
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    },
-  ];
+  // const store: Store[] = [
+  //   {
+  //     id: "dsds",
+  //     name: "Shoe store",
+  //     userId: "dlsdjsd",
+  //     createdAt: new Date(),
+  //     updatedAt: new Date(),
+  //   },
+  //   {
+  //     id: "dsdsdsdskkd",
+  //     name: "Sun glass store",
+  //     userId: "dlsdjsd",
+  //     createdAt: new Date(),
+  //     updatedAt: new Date(),
+  //   },
+  // ];
 
   return (
     <nav>

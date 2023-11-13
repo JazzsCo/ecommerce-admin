@@ -18,8 +18,8 @@ const roleMap: Record<ApiAlertProps["role"], string> = {
 };
 
 const textMap: Record<ApiAlertProps["role"], BadgeProps["variant"]> = {
-  admin: "secondary",
-  user: "destructive",
+  admin: "destructive",
+  user: "secondary",
 };
 
 const ApiAlert: FC<ApiAlertProps> = ({ title, description, role }) => {
