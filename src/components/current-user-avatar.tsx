@@ -4,13 +4,13 @@ import { FC } from "react";
 import { LogOutIcon } from "lucide-react";
 import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs/dist/components";
 
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
 
 interface CurrentUserAvatarProps {
   user: any;
@@ -18,8 +18,8 @@ interface CurrentUserAvatarProps {
 
 const CurrentUserAvatar: FC<CurrentUserAvatarProps> = ({ user }) => {
   return (
-    <Popover>
-      <PopoverTrigger>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
         <Avatar>
           <AvatarImage src={user?.picture} />
           <AvatarFallback>
@@ -27,26 +27,29 @@ const CurrentUserAvatar: FC<CurrentUserAvatarProps> = ({ user }) => {
             {user?.family_name?.charAt(0)}
           </AvatarFallback>
         </Avatar>
-      </PopoverTrigger>
-      <PopoverContent className="w-52 mr-6">
-        <div className="flex items-center font-semibold">
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuItem
+          onClick={() => {}}
+          className="flex items-center font-semibold"
+        >
           <h2 className="mr-3">user -</h2>
           <h2>
+            dsds
             {user?.given_name}
             {user?.family_name}
           </h2>
-        </div>
-        <Separator />
-        <div className="mt-2">
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => {}} className="flex items-center">
           <LogoutLink>
-            <div className="flex items-center font-semibold">
+            <div className="flex items-center">
               <LogOutIcon className="w-4 h-4 mr-3" />
               <h2 className="text-sm">Log out</h2>
             </div>
           </LogoutLink>
-        </div>
-      </PopoverContent>
-    </Popover>
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 };
 
