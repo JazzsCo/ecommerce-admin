@@ -24,7 +24,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Trash } from "lucide-react";
 
-interface BillboardFormProps {
+interface CategoryFormProps {
   initialData?: Store;
 }
 
@@ -32,7 +32,7 @@ const formSchema = z.object({
   name: z.string().min(1),
 });
 
-const BillboardForm: FC<BillboardFormProps> = ({ initialData }) => {
+const CategoryForm: FC<CategoryFormProps> = ({ initialData }) => {
   const router = useRouter();
   const origin = useOrigin();
   const params = useParams();
@@ -58,10 +58,10 @@ const BillboardForm: FC<BillboardFormProps> = ({ initialData }) => {
     }
   };
 
-  const title = initialData ? "Update Billboard" : "Create Billboard";
+  const title = initialData ? "Update Category" : "Create Category";
   const description = initialData
-    ? "Update the Billboard 👽"
-    : "Create a new Billboard 😉";
+    ? "Update the Category 👽"
+    : "Create a new Category 😉";
   const action = initialData ? "Update" : "Create";
 
   return (
@@ -122,4 +122,4 @@ const BillboardForm: FC<BillboardFormProps> = ({ initialData }) => {
   );
 };
 
-export default BillboardForm;
+export default CategoryForm;

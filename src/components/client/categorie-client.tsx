@@ -15,11 +15,11 @@ import {
 import { DataTable } from "../ui/data-table";
 import ApiAlert from "../api-alert";
 
-interface BillboardClientProps {
+interface CategoryClientProps {
   items: Billboard[];
 }
 
-const BillboardClient: FC<BillboardClientProps> = ({ items }) => {
+const CategoryClient: FC<CategoryClientProps> = ({ items }) => {
   const router = useRouter();
   const params = useParams();
 
@@ -32,11 +32,11 @@ const BillboardClient: FC<BillboardClientProps> = ({ items }) => {
   return (
     <div className="p-4 px-6 space-y-3">
       <div className="flex items-center justify-between">
-        <Heading title="Billboard(0)" description="Manage yours billboard 🫤" />
+        <Heading title="Category(0)" description="Manage yours category 🫤" />
         <Button
           type="button"
           onClick={() =>
-            router.push("/" + params.storeId + "/billboards/create-new")
+            router.push("/" + params.storeId + "/categories/create-new")
           }
         >
           Create New
@@ -56,32 +56,32 @@ const BillboardClient: FC<BillboardClientProps> = ({ items }) => {
         <Heading title="Api List" description="Manage yours api list" />
         <ApiAlert
           title="GET"
-          description={origin + "/api/" + params.storeId + "/billboards"}
+          description={origin + "/api/" + params.storeId + "/categories"}
           role="user"
         />
         <ApiAlert
           title="GET"
           description={
-            origin + "/api/" + params.storeId + "/billboards/<billboardId>"
+            origin + "/api/" + params.storeId + "/categories/<categoryId>"
           }
           role="user"
         />
         <ApiAlert
           title="POST"
-          description={origin + "/api/" + params.storeId + "/billboards"}
+          description={origin + "/api/" + params.storeId + "/categories"}
           role="admin"
         />
         <ApiAlert
           title="POST"
           description={
-            origin + "/api/" + params.storeId + "/billboards/<billboardId>"
+            origin + "/api/" + params.storeId + "/categories/<categoryId>"
           }
           role="admin"
         />
         <ApiAlert
           title="DELETE"
           description={
-            origin + "/api/" + params.storeId + "/billboards/<billboardId>"
+            origin + "/api/" + params.storeId + "/categories/<categoryId>"
           }
           role="admin"
         />
@@ -90,4 +90,4 @@ const BillboardClient: FC<BillboardClientProps> = ({ items }) => {
   );
 };
 
-export default BillboardClient;
+export default CategoryClient;
