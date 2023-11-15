@@ -37,7 +37,7 @@ import {
 import DeleteModal from "@/components/delete-button";
 
 interface SettingFormProps {
-  initialData: Store | null;
+  initialData: Store;
 }
 
 const formSchema = z.object({
@@ -163,7 +163,7 @@ const SettingForm: FC<SettingFormProps> = ({ initialData }) => {
         <ApiAlert
           title="NEXT_PUBLIC_API_URL"
           description={origin + "/api/stores/" + params.storeId}
-          role="admin"
+          role="user"
         />
       </div>
     </>

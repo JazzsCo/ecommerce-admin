@@ -3,6 +3,28 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/dist/server"
 
 import prisma from "@/lib/prisma";
 
+export async function GET(
+  req: NextRequest,
+  {
+    params,
+  }: {
+    params: { storeId: string };
+  }
+) {
+  try {
+    const store = await prisma.store.findFirst({
+      where: {
+        id: params.storeId,
+      },
+    });
+
+    return NextResponse.json(store);
+  } catch (error) {
+    console.log("[STORE_GET]", error);
+    return new NextResponse("Internal server error", { status: 500 });
+  }
+}
+
 export async function PATCH(
   req: NextRequest,
   {

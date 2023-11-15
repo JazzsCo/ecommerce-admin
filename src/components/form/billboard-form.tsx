@@ -110,14 +110,6 @@ const BillboardForm: FC<BillboardFormProps> = ({ initialData }) => {
           </div>
         </form>
       </Form>
-
-      {/* <Separator className="h-[0.5px]" /> */}
-
-      {/* <ApiAlert
-        title="NEXT_PUBLIC_API_URL"
-        description={origin + "/api/stores/" + params.storeId}
-        role="admin"
-      /> */}
     </div>
   );
 };
