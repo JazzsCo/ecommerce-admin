@@ -37,7 +37,7 @@ import {
 import DeleteModal from "@/components/delete-button";
 
 interface SettingFormProps {
-  initialData: Store;
+  initialData: Store | null;
 }
 
 const formSchema = z.object({

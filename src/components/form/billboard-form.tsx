@@ -1,8 +1,8 @@
 "use client";
 
 import * as z from "zod";
-import { FC } from "react";
-import { Store } from "@prisma/client";
+import { FC, useEffect } from "react";
+import { Billboard, Store } from "@prisma/client";
 import { useForm } from "react-hook-form";
 import { useParams, useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -23,13 +23,15 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Trash } from "lucide-react";
+import ImageUpload from "../ui/image-upload";
 
 interface BillboardFormProps {
-  initialData?: Store;
+  initialData: Billboard | null;
 }
 
 const formSchema = z.object({
   name: z.string().min(1),
+  imageUrl: z.string().min(1),
 });
 
 const BillboardForm: FC<BillboardFormProps> = ({ initialData }) => {
@@ -41,6 +43,7 @@ const BillboardForm: FC<BillboardFormProps> = ({ initialData }) => {
     resolver: zodResolver(formSchema),
     defaultValues: initialData || {
       name: "",
+      imageUrl: "",
     },
   });
 
@@ -64,6 +67,12 @@ const BillboardForm: FC<BillboardFormProps> = ({ initialData }) => {
     : "Create a new Billboard 😉";
   const action = initialData ? "Update" : "Create";
 
+  useEffect(() => {
+    if (!initialData) {
+      router.push("/" + params.storeId + "/billboards/create-new");
+    }
+  }, [initialData, router, params.storeId]);
+
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between">
@@ -85,6 +94,25 @@ const BillboardForm: FC<BillboardFormProps> = ({ initialData }) => {
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <div className="grid grid-cols-3 lg:grid-cols-5 gap-6">
+            <FormField
+              name="imageUrl"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Image Background</FormLabel>
+                  <FormControl>
+                    <ImageUpload
+                      images={field.value ? [field.value] : []}
+                      disable={loading}
+                      onChange={(url) => field.onChange(url)}
+                      onRemove={() => field.onChange("")}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
             <FormField
               name="name"
               control={form.control}
