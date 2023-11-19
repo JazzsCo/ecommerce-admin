@@ -7,14 +7,6 @@ const BillboardByIDPage = async ({
 }: {
   params: { storeId: string; billboardId: string };
 }) => {
-  // const store = {
-  //   id: "dsds",
-  //   name: "Shoe store",
-  //   userId: "sdksdsl",
-  //   createdAt: new Date(),
-  //   updatedAt: new Date(),
-  // };
-
   const billboard = await prisma.billboard.findUnique({
     where: {
       id: params.billboardId,

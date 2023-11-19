@@ -9,7 +9,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import Heading from "@/components/heading";
 import ApiAlert from "@/components/api-alert";
-import DeleteButton from "@/components/delete-button";
 import {
   Form,
   FormControl,
@@ -34,7 +33,7 @@ import {
   LucideCircleDashed,
   Trash,
 } from "lucide-react";
-import DeleteModal from "@/components/delete-button";
+import DeleteModal from "@/components/delete-modal";
 
 interface SettingFormProps {
   initialData: Store | null;
@@ -104,7 +103,7 @@ const SettingForm: FC<SettingFormProps> = ({ initialData }) => {
         isOpen={isDeleting}
         isLoading={isLoading}
         onClose={onClose}
-        onDelte={onDelete}
+        onDelete={onDelete}
       />
       <div className="space-y-3">
         <div className="flex items-center justify-between">

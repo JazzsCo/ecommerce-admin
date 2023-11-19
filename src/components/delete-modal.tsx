@@ -8,7 +8,7 @@ interface DeleteModalProps {
   isOpen: boolean;
   isLoading: boolean;
   onClose: () => void;
-  onDelte: () => void;
+  onDelete: () => void;
 }
 
 const DeleteModal: FC<DeleteModalProps> = ({
@@ -17,7 +17,7 @@ const DeleteModal: FC<DeleteModalProps> = ({
   isOpen,
   isLoading,
   onClose,
-  onDelte,
+  onDelete,
 }) => {
   return (
     <Modal
@@ -34,7 +34,7 @@ const DeleteModal: FC<DeleteModalProps> = ({
           type="button"
           variant="destructive"
           size="lg"
-          onClick={onDelte}
+          onClick={onDelete}
           disabled={isLoading}
         >
           Delete
