@@ -14,6 +14,7 @@ import {
 } from "../column/billboard-column";
 import { DataTable } from "../ui/data-table";
 import ApiAlert from "../api-alert";
+import { useOrigin } from "@/hook/use-origin";
 
 interface BillboardClientProps {
   items: Billboard[];
@@ -22,6 +23,7 @@ interface BillboardClientProps {
 const BillboardClient: FC<BillboardClientProps> = ({ items }) => {
   const router = useRouter();
   const params = useParams();
+  const origin = useOrigin();
 
   const billboardColumnData: BillboardColumnProps[] = items.map((item) => ({
     id: item.id,
@@ -32,7 +34,10 @@ const BillboardClient: FC<BillboardClientProps> = ({ items }) => {
   return (
     <div className="p-4 px-6 space-y-3">
       <div className="flex items-center justify-between">
-        <Heading title="Billboard(0)" description="Manage yours billboard 🫤" />
+        <Heading
+          title={`Billboard (${items.length})`}
+          description="Manage yours billboard 🫤"
+        />
         <Button
           type="button"
           onClick={() =>
@@ -51,7 +56,8 @@ const BillboardClient: FC<BillboardClientProps> = ({ items }) => {
         data={billboardColumnData}
       />
 
-      <Separator className="h-[0.5px]" />
+      <Separator />
+
       <>
         <Heading title="Api List" description="Manage yours api list" />
         <ApiAlert
@@ -72,7 +78,7 @@ const BillboardClient: FC<BillboardClientProps> = ({ items }) => {
           role="admin"
         />
         <ApiAlert
-          title="POST"
+          title="PATCH"
           description={
             origin + "/api/" + params.storeId + "/billboards/<billboardId>"
           }
