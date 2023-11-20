@@ -1,34 +1,23 @@
-import CategoryClient from "@/components/client/categorie-client";
+import prisma from "@/lib/prisma";
 
-const CategoriesPage = ({ params }: { params: { storeId: string } }) => {
-  const billboard = [
-    {
-      id: "string",
-      name: "shirt",
-      imageUrl: "string",
-      storeId: "string",
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    },
-    {
-      id: "string",
-      name: "book",
-      imageUrl: "string",
-      storeId: "string",
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    },
-    {
-      id: "string",
-      name: "pen",
-      imageUrl: "string",
-      storeId: "string",
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    },
-  ];
+import CategoryClient from "@/components/client/category-client";
 
-  return <CategoryClient items={billboard} />;
+const CategoriesPage = async ({ params }: { params: { storeId: string } }) => {
+  const category = await prisma.category.findMany({
+    where: {
+      storeId: params.storeId,
+    },
+    include: {
+      billboard: true,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
+  console.log("CATEGORY CLIENT", category);
+
+  return <CategoryClient items={category} />;
 };
 
 export default CategoriesPage;

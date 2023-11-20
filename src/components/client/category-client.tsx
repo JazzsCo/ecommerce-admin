@@ -6,7 +6,7 @@ import { useParams, useRouter } from "next/navigation";
 import Heading from "@/components/heading";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { Billboard } from "@prisma/client";
+import { Billboard, Category } from "@prisma/client";
 import { FC } from "react";
 import {
   BillboardColumnProps,
@@ -20,7 +20,7 @@ import {
 } from "../column/category-column";
 
 interface CategoryClientProps {
-  items: Billboard[];
+  items: Category[];
 }
 
 const CategoryClient: FC<CategoryClientProps> = ({ items }) => {
@@ -30,13 +30,17 @@ const CategoryClient: FC<CategoryClientProps> = ({ items }) => {
   const categoryColumnData: CategoryColumnProps[] = items.map((item) => ({
     id: item.id,
     name: item.name,
+    categoryName: item.name,
     date: format(item.createdAt, "MMM do, y"),
   }));
 
   return (
     <div className="p-4 px-6 space-y-3">
       <div className="flex items-center justify-between">
-        <Heading title="Category(0)" description="Manage yours category 🫤" />
+        <Heading
+          title={`Category (${items.length})`}
+          description="Manage yours category 🫤"
+        />
         <Button
           type="button"
           onClick={() =>
@@ -55,7 +59,8 @@ const CategoryClient: FC<CategoryClientProps> = ({ items }) => {
         data={categoryColumnData}
       />
 
-      <Separator className="h-[0.5px]" />
+      <Separator />
+
       <>
         <Heading title="Api List" description="Manage yours api list" />
         <ApiAlert

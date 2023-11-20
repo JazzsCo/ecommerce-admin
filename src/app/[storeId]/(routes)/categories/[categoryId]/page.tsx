@@ -1,31 +1,22 @@
-"use client";
-
-import { useRouter } from "next/navigation";
+import prisma from "@/lib/prisma";
 
 import CategoryForm from "@/components/form/category-form";
 
-const CategoryByIDPage = ({
+const CategoryByIDPage = async ({
   params,
 }: {
   params: { storeId: string; categoryId: string };
 }) => {
-  const store = {
-    id: "dsds",
-    name: "Shoe store",
-    userId: "sdksdsl",
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  };
-
-  const router = useRouter();
-
-  if (!false) {
-    router.push("/" + params.storeId + "/categories/create-new");
-  }
+  const category = await prisma.category.findUnique({
+    where: {
+      id: params.categoryId,
+      storeId: params.storeId,
+    },
+  });
 
   return (
     <div className="p-4 px-6">
-      <CategoryForm initialData={store} />
+      <CategoryForm initialData={category} />
     </div>
   );
 };

@@ -1,25 +1,26 @@
 "use client";
 
 import { FC, useState } from "react";
-import { BillboardColumnProps } from "./column/billboard-column";
+import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
+import { useParams, useRouter } from "next/navigation";
+import axios from "axios";
+import { BillboardColumnProps } from "../column/billboard-column";
+import DeleteModal from "../delete-modal";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
-import { Button } from "./ui/button";
-import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
-import { useParams, useRouter } from "next/navigation";
-import DeleteModal from "./delete-modal";
-import axios from "axios";
+} from "../ui/dropdown-menu";
+import { Button } from "../ui/button";
+import { CategoryColumnProps } from "../column/category-column";
 
-interface CellActionProps {
-  item: BillboardColumnProps;
+interface CategoryCellActionProps {
+  item: CategoryColumnProps;
 }
 
-const CellAction: FC<CellActionProps> = ({ item }) => {
+const CategoryCellAction: FC<CategoryCellActionProps> = ({ item }) => {
   const router = useRouter();
   const params = useParams();
 
@@ -35,7 +36,7 @@ const CellAction: FC<CellActionProps> = ({ item }) => {
   };
 
   const onUpdate = () => {
-    router.push("/" + params.storeId + "/billboards/" + item.id);
+    router.push("/" + params.storeId + "/categories/" + item.id);
   };
 
   const onDelete = async () => {
@@ -43,7 +44,7 @@ const CellAction: FC<CellActionProps> = ({ item }) => {
       setIsLoading(true);
 
       const res = await axios.delete(
-        "/api/" + params.storeId + "/billboards/" + item.id
+        "/api/" + params.storeId + "/categories/" + item.id
       );
 
       setIsLoading(false);
@@ -57,8 +58,8 @@ const CellAction: FC<CellActionProps> = ({ item }) => {
   return (
     <>
       <DeleteModal
-        title={"Delete" + " " + item.name.toLowerCase() + " " + "billboard"}
-        description="Your are sure to delete this billboard"
+        title={"Delete" + " " + item.name.toLowerCase() + " " + "category"}
+        description="Your are sure to delete this category"
         isOpen={isDeleting}
         isLoading={isLoading}
         onClose={onClose}
@@ -96,4 +97,4 @@ const CellAction: FC<CellActionProps> = ({ item }) => {
   );
 };
 
-export default CellAction;
+export default CategoryCellAction;
