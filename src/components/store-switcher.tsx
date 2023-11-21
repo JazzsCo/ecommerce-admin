@@ -100,7 +100,7 @@ const StoreSwitcher: FC<StoreSwitcherProps> = ({ items }) => {
             <CommandGroup>
               <CommandItem
                 onSelect={() => onCreateStore()}
-                className="flex items-center space-x-6"
+                className="flex items-center space-x-6 font-semibold"
               >
                 <PlusCircle className="w-4 h-4" />
                 <h3>Create Store</h3>

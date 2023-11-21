@@ -14,9 +14,18 @@ const CategoryByIDPage = async ({
     },
   });
 
+  const billboard = await prisma.billboard.findMany({
+    where: {
+      storeId: params.storeId,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
   return (
     <div className="p-4 px-6">
-      <CategoryForm initialData={category} />
+      <CategoryForm initialData={category} billboards={billboard} />
     </div>
   );
 };

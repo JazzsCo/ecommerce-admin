@@ -2,7 +2,7 @@
 
 import * as z from "zod";
 import { FC, useEffect, useState } from "react";
-import { Category, Store } from "@prisma/client";
+import { Billboard, Category, Store } from "@prisma/client";
 import { useForm } from "react-hook-form";
 import { useParams, useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -24,9 +24,11 @@ import { Separator } from "@/components/ui/separator";
 import { Trash } from "lucide-react";
 import axios from "axios";
 import DeleteModal from "../delete-modal";
+import Select from "../select-component";
 
 interface CategoryFormProps {
   initialData: Category | null;
+  billboards: Billboard[];
 }
 
 const formSchema = z.object({
@@ -34,7 +36,7 @@ const formSchema = z.object({
   billboardId: z.string().min(1),
 });
 
-const CategoryForm: FC<CategoryFormProps> = ({ initialData }) => {
+const CategoryForm: FC<CategoryFormProps> = ({ initialData, billboards }) => {
   const router = useRouter();
   const origin = useOrigin();
   const params = useParams();
@@ -57,33 +59,35 @@ const CategoryForm: FC<CategoryFormProps> = ({ initialData }) => {
   };
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    try {
-      if (!initialData) {
-        const res = await axios.post("/api/" + params.storeId + "/categories", {
-          name: values.name,
-          billboardId: values.billboardId,
-        });
+    // try {
+    //   if (!initialData) {
+    //     const res = await axios.post("/api/" + params.storeId + "/categories", {
+    //       name: values.name,
+    //       billboardId: values.billboardId,
+    //     });
 
-        // TODO: SUCCESS MESSAGE
-        router.push("/" + params.storeId + "/categories");
-      } else {
-        console.log("first");
-        const res = await axios.patch(
-          "/api/" + params.storeId + "/categories/" + initialData.id,
-          {
-            name: values.name,
-            billboardId: values.billboardId,
-          }
-        );
+    //     // TODO: SUCCESS MESSAGE
+    //     router.push("/" + params.storeId + "/categories");
+    //   } else {
+    //     console.log("first");
+    //     const res = await axios.patch(
+    //       "/api/" + params.storeId + "/categories/" + initialData.id,
+    //       {
+    //         name: values.name,
+    //         billboardId: values.billboardId,
+    //       }
+    //     );
 
-        // TODO: SUCCESS MESSAGE
-        router.push("/" + params.storeId + "/categories");
-      }
-    } catch (error) {
-      console.log("ERROR", error);
-    } finally {
-      router.refresh();
-    }
+    //     // TODO: SUCCESS MESSAGE
+    //     router.push("/" + params.storeId + "/categories");
+    //   }
+    // } catch (error) {
+    //   console.log("ERROR", error);
+    // } finally {
+    //   router.refresh();
+    // }
+
+    console.log("VALUES", values);
   };
 
   const onDelete = async () => {
@@ -159,6 +163,26 @@ const CategoryForm: FC<CategoryFormProps> = ({ initialData }) => {
                         {...field}
                         disabled={loading}
                         placeholder="Category name"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                name="billboardId"
+                control={form.control}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Billboards</FormLabel>
+                    <FormControl>
+                      <Select
+                        value={field.value}
+                        disabled={loading}
+                        placeholder="Select a billboard 🫨"
+                        onChange={field.onChange}
+                        items={billboards}
                       />
                     </FormControl>
                     <FormMessage />
