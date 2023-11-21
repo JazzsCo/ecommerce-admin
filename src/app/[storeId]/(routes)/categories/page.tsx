@@ -1,6 +1,8 @@
 import prisma from "@/lib/prisma";
+import { format } from "date-fns";
 
 import CategoryClient from "@/components/client/category-client";
+import { CategoryColumnProps } from "@/components/column/category-column";
 
 const CategoriesPage = async ({ params }: { params: { storeId: string } }) => {
   const category = await prisma.category.findMany({
@@ -15,9 +17,14 @@ const CategoriesPage = async ({ params }: { params: { storeId: string } }) => {
     },
   });
 
-  console.log("CATEGORY CLIENT", category);
+  const categoryColumnData: CategoryColumnProps[] = category.map((item) => ({
+    id: item.id,
+    name: item.name,
+    billboardName: item.billboard.name,
+    date: format(item.createdAt, "MMM do, y"),
+  }));
 
-  return <CategoryClient items={category} />;
+  return <CategoryClient categoryColumnData={categoryColumnData} />;
 };
 
 export default CategoriesPage;

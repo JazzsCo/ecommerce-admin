@@ -6,7 +6,7 @@ import CategoryCellAction from "../celll-action/category-cell-action";
 export type CategoryColumnProps = {
   id: string;
   name: string;
-  categoryName: string;
+  billboardName: string;
   date: string;
 };
 
@@ -14,6 +14,10 @@ export const categorieColumn: ColumnDef<CategoryColumnProps>[] = [
   {
     accessorKey: "name",
     header: "Name",
+  },
+  {
+    accessorKey: "billboardName",
+    header: "Billboards",
   },
   {
     accessorKey: "date",

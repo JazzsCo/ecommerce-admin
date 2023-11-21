@@ -1,6 +1,5 @@
 "use client";
 
-import { format } from "date-fns";
 import { useParams, useRouter } from "next/navigation";
 
 import Heading from "@/components/heading";
@@ -20,25 +19,18 @@ import {
 } from "../column/category-column";
 
 interface CategoryClientProps {
-  items: Category[];
+  categoryColumnData: CategoryColumnProps[];
 }
 
-const CategoryClient: FC<CategoryClientProps> = ({ items }) => {
+const CategoryClient: FC<CategoryClientProps> = ({ categoryColumnData }) => {
   const router = useRouter();
   const params = useParams();
-
-  const categoryColumnData: CategoryColumnProps[] = items.map((item) => ({
-    id: item.id,
-    name: item.name,
-    categoryName: item.name,
-    date: format(item.createdAt, "MMM do, y"),
-  }));
 
   return (
     <div className="p-4 px-6 space-y-3">
       <div className="flex items-center justify-between">
         <Heading
-          title={`Category (${items.length})`}
+          title={`Category (${categoryColumnData.length})`}
           description="Manage yours category 🫤"
         />
         <Button
@@ -81,7 +73,7 @@ const CategoryClient: FC<CategoryClientProps> = ({ items }) => {
           role="admin"
         />
         <ApiAlert
-          title="POST"
+          title="PATCH"
           description={
             origin + "/api/" + params.storeId + "/categories/<categoryId>"
           }
