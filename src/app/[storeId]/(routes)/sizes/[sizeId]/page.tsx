@@ -1,31 +1,22 @@
-"use client";
-
-import { useRouter } from "next/navigation";
+import prisma from "@/lib/prisma";
 
 import SizeForm from "@/components/form/size-form";
 
-const SizeByIDPage = ({
+const SizeByIDPage = async ({
   params,
 }: {
-  params: { storeId: string; categoryId: string };
+  params: { storeId: string; sizeId: string };
 }) => {
-  const store = {
-    id: "dsds",
-    name: "Shoe store",
-    userId: "sdksdsl",
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  };
-
-  const router = useRouter();
-
-  if (!false) {
-    router.push("/" + params.storeId + "/sizes/create-new");
-  }
+  const size = await prisma.size.findUnique({
+    where: {
+      id: params.sizeId,
+      storeId: params.storeId,
+    },
+  });
 
   return (
     <div className="p-4 px-6">
-      <SizeForm initialData={store} />
+      <SizeForm initialData={size} />
     </div>
   );
 };

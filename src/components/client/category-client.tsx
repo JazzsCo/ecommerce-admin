@@ -17,6 +17,7 @@ import {
   CategoryColumnProps,
   categorieColumn,
 } from "../column/category-column";
+import { useOrigin } from "@/hook/use-origin";
 
 interface CategoryClientProps {
   categoryColumnData: CategoryColumnProps[];
@@ -25,6 +26,7 @@ interface CategoryClientProps {
 const CategoryClient: FC<CategoryClientProps> = ({ categoryColumnData }) => {
   const router = useRouter();
   const params = useParams();
+  const origin = useOrigin();
 
   return (
     <div className="p-4 px-6 space-y-3">

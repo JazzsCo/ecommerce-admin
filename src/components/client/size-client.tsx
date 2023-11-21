@@ -6,7 +6,7 @@ import { useParams, useRouter } from "next/navigation";
 import Heading from "@/components/heading";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { Billboard } from "@prisma/client";
+import { Billboard, Size } from "@prisma/client";
 import { FC } from "react";
 import {
   BillboardColumnProps,
@@ -17,7 +17,7 @@ import ApiAlert from "../api-alert";
 import { SizeColumnProps, sizeColumn } from "../column/size-column";
 
 interface SizeClientProps {
-  items: Billboard[];
+  items: Size[];
 }
 
 const SizeClient: FC<SizeClientProps> = ({ items }) => {
@@ -27,13 +27,17 @@ const SizeClient: FC<SizeClientProps> = ({ items }) => {
   const sizeColumnData: SizeColumnProps[] = items.map((item) => ({
     id: item.id,
     name: item.name,
+    price: item.value,
     date: format(item.createdAt, "MMM do, y"),
   }));
 
   return (
     <div className="p-4 px-6 space-y-3">
       <div className="flex items-center justify-between">
-        <Heading title="Size(0)" description="Manage yours size 🫤" />
+        <Heading
+          title={`Size (${items.length})`}
+          description="Manage yours size 🫤"
+        />
         <Button
           type="button"
           onClick={() =>
@@ -48,7 +52,8 @@ const SizeClient: FC<SizeClientProps> = ({ items }) => {
 
       <DataTable searchKey="name" columns={sizeColumn} data={sizeColumnData} />
 
-      <Separator className="h-[0.5px]" />
+      <Separator />
+
       <>
         <Heading title="Api List" description="Manage yours api list" />
         <ApiAlert
@@ -67,7 +72,7 @@ const SizeClient: FC<SizeClientProps> = ({ items }) => {
           role="admin"
         />
         <ApiAlert
-          title="POST"
+          title="PATCH"
           description={origin + "/api/" + params.storeId + "/sizes/<sizeId>"}
           role="admin"
         />

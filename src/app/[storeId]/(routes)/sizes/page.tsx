@@ -1,34 +1,17 @@
+import prisma from "@/lib/prisma";
 import SizeClient from "@/components/client/size-client";
 
-const SizesPage = ({ params }: { params: { storeId: string } }) => {
-  const billboard = [
-    {
-      id: "string",
-      name: "shirt",
-      imageUrl: "string",
-      storeId: "string",
-      createdAt: new Date(),
-      updatedAt: new Date(),
+const SizesPage = async ({ params }: { params: { storeId: string } }) => {
+  const size = await prisma.size.findMany({
+    where: {
+      storeId: params.storeId,
     },
-    {
-      id: "string",
-      name: "book",
-      imageUrl: "string",
-      storeId: "string",
-      createdAt: new Date(),
-      updatedAt: new Date(),
+    orderBy: {
+      createdAt: "desc",
     },
-    {
-      id: "string",
-      name: "pen",
-      imageUrl: "string",
-      storeId: "string",
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    },
-  ];
+  });
 
-  return <SizeClient items={billboard} />;
+  return <SizeClient items={size} />;
 };
 
 export default SizesPage;
