@@ -18,6 +18,11 @@ export const sizeColumn: ColumnDef<SizeColumnProps>[] = [
   {
     accessorKey: "price",
     header: "Price",
+    cell: ({ row }) => (
+      <div>
+        <h1>$ {row.original.price}</h1>
+      </div>
+    ),
   },
   {
     accessorKey: "date",
