@@ -59,35 +59,33 @@ const CategoryForm: FC<CategoryFormProps> = ({ initialData, billboards }) => {
   };
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    // try {
-    //   if (!initialData) {
-    //     const res = await axios.post("/api/" + params.storeId + "/categories", {
-    //       name: values.name,
-    //       billboardId: values.billboardId,
-    //     });
+    try {
+      if (!initialData) {
+        const res = await axios.post("/api/" + params.storeId + "/categories", {
+          name: values.name,
+          billboardId: values.billboardId,
+        });
 
-    //     // TODO: SUCCESS MESSAGE
-    //     router.push("/" + params.storeId + "/categories");
-    //   } else {
-    //     console.log("first");
-    //     const res = await axios.patch(
-    //       "/api/" + params.storeId + "/categories/" + initialData.id,
-    //       {
-    //         name: values.name,
-    //         billboardId: values.billboardId,
-    //       }
-    //     );
+        // TODO: SUCCESS MESSAGE
+        router.push("/" + params.storeId + "/categories");
+      } else {
+        console.log("first");
+        const res = await axios.patch(
+          "/api/" + params.storeId + "/categories/" + initialData.id,
+          {
+            name: values.name,
+            billboardId: values.billboardId,
+          }
+        );
 
-    //     // TODO: SUCCESS MESSAGE
-    //     router.push("/" + params.storeId + "/categories");
-    //   }
-    // } catch (error) {
-    //   console.log("ERROR", error);
-    // } finally {
-    //   router.refresh();
-    // }
-
-    console.log("VALUES", values);
+        // TODO: SUCCESS MESSAGE
+        router.push("/" + params.storeId + "/categories");
+      }
+    } catch (error) {
+      console.log("ERROR", error);
+    } finally {
+      router.refresh();
+    }
   };
 
   const onDelete = async () => {
