@@ -23,6 +23,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Trash } from "lucide-react";
 import axios from "axios";
+import DeleteModal from "../delete-modal";
 
 interface ColorFormProps {
   initialData: Color | null;
@@ -115,71 +116,84 @@ const ColorForm: FC<ColorFormProps> = ({ initialData }) => {
   }, [initialData, router, params.storeId]);
 
   return (
-    <div className="space-y-3">
-      <div className="flex items-center justify-between">
-        <Heading title={title} description={description} />
-        {initialData && (
-          <Button
-            type="button"
-            variant="destructive"
-            size="icon"
-            onClick={() => setIsDeleting(true)}
-          >
-            <Trash className="w-4 h-4" />
-          </Button>
-        )}
-      </div>
+    <>
+      <DeleteModal
+        title={
+          "Delete" + " " + initialData?.name.toLowerCase() + " " + "billboard"
+        }
+        description="Your are sure to delete this billboard"
+        isOpen={isDeleting}
+        isLoading={isLoading}
+        onClose={onClose}
+        onDelete={onDelete}
+      />
 
-      <Separator />
-
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
-          <div className="grid grid-cols-3 lg:grid-cols-5 gap-6">
-            <FormField
-              name="name"
-              control={form.control}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Name</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      disabled={loading}
-                      placeholder="Color name"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              name="value"
-              control={form.control}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Price</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      type="number"
-                      disabled={loading}
-                      placeholder="Price"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
-          <div className="flex items-center justify-end">
-            <Button type="submit" size="lg" variant="secondary">
-              {action}
+      <div className="space-y-3">
+        <div className="flex items-center justify-between">
+          <Heading title={title} description={description} />
+          {initialData && (
+            <Button
+              type="button"
+              variant="destructive"
+              size="icon"
+              onClick={() => setIsDeleting(true)}
+            >
+              <Trash className="w-4 h-4" />
             </Button>
-          </div>
-        </form>
-      </Form>
-    </div>
+          )}
+        </div>
+
+        <Separator />
+
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)}>
+            <div className="grid grid-cols-3 lg:grid-cols-5 gap-6">
+              <FormField
+                name="name"
+                control={form.control}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Name</FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        disabled={loading}
+                        placeholder="Color name"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                name="value"
+                control={form.control}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Price</FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        type="number"
+                        disabled={loading}
+                        placeholder="Price"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+            <div className="flex items-center justify-end">
+              <Button type="submit" size="lg" variant="secondary">
+                {action}
+              </Button>
+            </div>
+          </form>
+        </Form>
+      </div>
+    </>
   );
 };
 
