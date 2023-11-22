@@ -1,31 +1,22 @@
-"use client";
-
-import { useRouter } from "next/navigation";
+import prisma from "@/lib/prisma";
 
 import ColorForm from "@/components/form/color-form";
 
-const ColorByIDPage = ({
+const ColorByIDPage = async ({
   params,
 }: {
-  params: { storeId: string; categoryId: string };
+  params: { storeId: string; colorId: string };
 }) => {
-  const store = {
-    id: "dsds",
-    name: "Shoe store",
-    userId: "sdksdsl",
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  };
-
-  const router = useRouter();
-
-  if (!false) {
-    router.push("/" + params.storeId + "/colors/create-new");
-  }
+  const color = await prisma.color.findUnique({
+    where: {
+      id: params.colorId,
+      storeId: params.storeId,
+    },
+  });
 
   return (
     <div className="p-4 px-6">
-      <ColorForm initialData={store} />
+      <ColorForm initialData={color} />
     </div>
   );
 };

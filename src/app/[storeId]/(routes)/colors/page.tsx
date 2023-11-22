@@ -1,34 +1,18 @@
+import prisma from "@/lib/prisma";
+
 import ColorClient from "@/components/client/color-client";
 
-const ColorsPage = ({ params }: { params: { storeId: string } }) => {
-  const billboard = [
-    {
-      id: "string",
-      name: "shirt",
-      imageUrl: "string",
-      storeId: "string",
-      createdAt: new Date(),
-      updatedAt: new Date(),
+const ColorsPage = async ({ params }: { params: { storeId: string } }) => {
+  const color = await prisma.color.findMany({
+    where: {
+      storeId: params.storeId,
     },
-    {
-      id: "string",
-      name: "book",
-      imageUrl: "string",
-      storeId: "string",
-      createdAt: new Date(),
-      updatedAt: new Date(),
+    orderBy: {
+      createdAt: "desc",
     },
-    {
-      id: "string",
-      name: "pen",
-      imageUrl: "string",
-      storeId: "string",
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    },
-  ];
+  });
 
-  return <ColorClient items={billboard} />;
+  return <ColorClient items={color} />;
 };
 
 export default ColorsPage;

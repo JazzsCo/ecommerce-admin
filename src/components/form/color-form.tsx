@@ -1,15 +1,14 @@
 "use client";
 
 import * as z from "zod";
-import { FC } from "react";
-import { Store } from "@prisma/client";
+import { FC, useEffect, useState } from "react";
+import { Color, Store } from "@prisma/client";
 import { useForm } from "react-hook-form";
 import { useParams, useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import Heading from "@/components/heading";
 import ApiAlert from "@/components/api-alert";
-import DeleteButton from "@/components/delete-button";
 import {
   Form,
   FormControl,
@@ -23,34 +22,62 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Trash } from "lucide-react";
+import axios from "axios";
 
 interface ColorFormProps {
-  initialData?: Store;
+  initialData: Color | null;
 }
 
 const formSchema = z.object({
   name: z.string().min(1),
+  value: z.string().min(1),
 });
 
 const ColorForm: FC<ColorFormProps> = ({ initialData }) => {
   const router = useRouter();
-  const origin = useOrigin();
   const params = useParams();
+  const origin = useOrigin();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: initialData || {
       name: "",
+      value: "",
     },
   });
 
   const loading = form.formState.isSubmitting;
 
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const onClose = () => {
+    setIsDeleting(false);
+  };
+
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      console.log("VALUES", values);
+      if (!initialData) {
+        const res = await axios.post("/api/" + params.storeId + "/colors", {
+          name: values.name,
+          value: values.value,
+        });
 
-      // form.reset();
+        // TODO: SUCCESS MESSAGE
+        router.push("/" + params.storeId + "/colors");
+      } else {
+        console.log("first");
+        const res = await axios.patch(
+          "/api/" + params.storeId + "/colors/" + initialData.id,
+          {
+            name: values.name,
+            value: values.value,
+          }
+        );
+
+        // TODO: SUCCESS MESSAGE
+        router.push("/" + params.storeId + "/colors");
+      }
     } catch (error) {
       console.log("ERROR", error);
     } finally {
@@ -58,11 +85,34 @@ const ColorForm: FC<ColorFormProps> = ({ initialData }) => {
     }
   };
 
-  const title = initialData ? "Update Color" : "Create Color";
+  const onDelete = async () => {
+    try {
+      setIsLoading(true);
+
+      const res = await axios.delete(
+        "/api/" + params.storeId + "/colors/" + initialData?.id
+      );
+
+      setIsLoading(false);
+      router.push("/" + params.storeId + "/colors");
+    } catch (error) {
+      console.log("ERROR", error);
+    } finally {
+      router.refresh();
+    }
+  };
+
+  const title = initialData ? "Edit Color" : "Create Color";
   const description = initialData
-    ? "Update the Color 👽"
-    : "Create a new Color 😉";
+    ? "Update this Color 👽"
+    : "Add a new Color 😉";
   const action = initialData ? "Update" : "Create";
+
+  useEffect(() => {
+    if (!initialData) {
+      router.push("/" + params.storeId + "/colors/create-new");
+    }
+  }, [initialData, router, params.storeId]);
 
   return (
     <div className="space-y-3">
@@ -73,7 +123,7 @@ const ColorForm: FC<ColorFormProps> = ({ initialData }) => {
             type="button"
             variant="destructive"
             size="icon"
-            // onClick={() => setIsDeleting(true)}
+            onClick={() => setIsDeleting(true)}
           >
             <Trash className="w-4 h-4" />
           </Button>
@@ -95,7 +145,26 @@ const ColorForm: FC<ColorFormProps> = ({ initialData }) => {
                     <Input
                       {...field}
                       disabled={loading}
-                      placeholder="Store name"
+                      placeholder="Color name"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              name="value"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Price</FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      type="number"
+                      disabled={loading}
+                      placeholder="Price"
                     />
                   </FormControl>
                   <FormMessage />
@@ -110,14 +179,6 @@ const ColorForm: FC<ColorFormProps> = ({ initialData }) => {
           </div>
         </form>
       </Form>
-
-      {/* <Separator className="h-[0.5px]" /> */}
-
-      {/* <ApiAlert
-        title="NEXT_PUBLIC_API_URL"
-        description={origin + "/api/stores/" + params.storeId}
-        role="admin"
-      /> */}
     </div>
   );
 };

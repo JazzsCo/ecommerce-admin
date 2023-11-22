@@ -91,11 +91,11 @@ const SizeForm: FC<SizeFormProps> = ({ initialData }) => {
       setIsLoading(true);
 
       const res = await axios.delete(
-        "/api/" + params.storeId + "/billboards/" + initialData?.id
+        "/api/" + params.storeId + "/sizes/" + initialData?.id
       );
 
       setIsLoading(false);
-      router.push("/" + params.storeId + "/billboards");
+      router.push("/" + params.storeId + "/sizes");
     } catch (error) {
       console.log("ERROR", error);
     } finally {
