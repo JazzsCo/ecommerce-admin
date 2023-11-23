@@ -1,13 +1,12 @@
 import React from "react";
-import prisma from "@/lib/prisma";
-
-import StoreSwitcher from "@/components/store-switcher";
-import ThemeToggle from "@/components/theme-toggle";
-import CurrentUserAvatar from "@/components/current-user-avatar";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/dist/server";
-import MainNav from "@/components/main-nav";
-import { Store } from "@prisma/client";
 import { redirect } from "next/navigation";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/dist/server";
+
+import prisma from "@/lib/prisma";
+import ThemeToggle from "@/components/theme-toggle";
+import StoreSwitcher from "@/components/store-switcher";
+import CurrentUserAvatar from "@/components/current-user-avatar";
+import MainNav from "@/components/main-nav";
 
 export default async function OverViewLayout({
   children,
@@ -32,26 +31,8 @@ export default async function OverViewLayout({
     redirect("/landing");
   }
 
-  // TEST MODE
-  // const store: Store[] = [
-  //   {
-  //     id: "dsds",
-  //     name: "Shoe store",
-  //     userId: "dlsdjsd",
-  //     createdAt: new Date(),
-  //     updatedAt: new Date(),
-  //   },
-  //   {
-  //     id: "dsdsdsdskkd",
-  //     name: "Sun glass store",
-  //     userId: "dlsdjsd",
-  //     createdAt: new Date(),
-  //     updatedAt: new Date(),
-  //   },
-  // ];
-
   return (
-    <nav>
+    <nav className="max-w-7xl m-auto">
       <div className="border-b dark:border-b-slate-800 p-4 flex items-center">
         <StoreSwitcher items={store} />
         <div className="mx-4">
