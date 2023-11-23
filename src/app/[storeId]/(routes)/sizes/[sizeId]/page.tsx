@@ -1,5 +1,4 @@
 import prisma from "@/lib/prisma";
-
 import SizeForm from "@/components/form/size-form";
 
 const SizeByIDPage = async ({

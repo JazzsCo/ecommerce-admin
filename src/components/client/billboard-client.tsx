@@ -1,20 +1,20 @@
 "use client";
 
+import { FC } from "react";
 import { format } from "date-fns";
+import { Billboard } from "@prisma/client";
 import { useParams, useRouter } from "next/navigation";
 
 import Heading from "@/components/heading";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import { Billboard } from "@prisma/client";
-import { FC } from "react";
 import {
   BillboardColumnProps,
   billboardColumn,
-} from "../column/billboard-column";
-import { DataTable } from "../ui/data-table";
-import ApiAlert from "../api-alert";
+} from "@/components/column/billboard-column";
 import { useOrigin } from "@/hook/use-origin";
+import ApiAlert from "@/components/api-alert";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { DataTable } from "@/components/ui/data-table";
 
 interface BillboardClientProps {
   items: Billboard[];

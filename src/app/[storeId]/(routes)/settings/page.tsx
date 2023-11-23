@@ -1,8 +1,8 @@
 import React from "react";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/dist/server";
 
 import prisma from "@/lib/prisma";
 import SettingForm from "@/components/form/setting-form";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/dist/server";
 
 export default async function SettingsPage({
   params,

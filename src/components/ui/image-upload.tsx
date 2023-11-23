@@ -1,10 +1,11 @@
 "use client";
 
+import Image from "next/image";
+import { ImagePlus, Trash } from "lucide-react";
 import { FC, useEffect, useState } from "react";
 import { CldUploadWidget } from "next-cloudinary";
-import { Button } from "./button";
-import { ImagePlus, Trash } from "lucide-react";
-import Image from "next/image";
+
+import { Button } from "@/components/ui/button";
 
 interface ImageUploadProps {
   images: string[];

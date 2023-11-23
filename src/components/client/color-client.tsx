@@ -1,44 +1,30 @@
 "use client";
 
-import { format } from "date-fns";
+import { FC } from "react";
 import { useParams, useRouter } from "next/navigation";
 
 import Heading from "@/components/heading";
+import ApiAlert from "@/components/api-alert";
+import { useOrigin } from "@/hook/use-origin";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { Billboard, Color } from "@prisma/client";
-import { FC } from "react";
-import {
-  BillboardColumnProps,
-  billboardColumn,
-} from "../column/billboard-column";
-import { DataTable } from "../ui/data-table";
-import ApiAlert from "../api-alert";
-import { SizeColumnProps, sizeColumn } from "../column/size-column";
+import { DataTable } from "@/components/ui/data-table";
 import { ColorColumnProps, colorColumn } from "../column/color-column";
-import { useOrigin } from "@/hook/use-origin";
 
 interface ColorClientProps {
-  items: Color[];
+  colorColumnData: ColorColumnProps[];
 }
 
-const ColorClient: FC<ColorClientProps> = ({ items }) => {
+const ColorClient: FC<ColorClientProps> = ({ colorColumnData }) => {
   const router = useRouter();
   const params = useParams();
   const origin = useOrigin();
-
-  const colorColumnData: ColorColumnProps[] = items.map((item) => ({
-    id: item.id,
-    name: item.name,
-    value: item.value,
-    date: format(item.createdAt, "MMM do, y"),
-  }));
 
   return (
     <div className="p-4 px-6 space-y-3">
       <div className="flex items-center justify-between">
         <Heading
-          title={`Color (${items.length})`}
+          title={`Color (${colorColumnData.length})`}
           description="Manage yours color 🫤"
         />
         <Button

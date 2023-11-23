@@ -1,5 +1,6 @@
 "use client";
 
+import { Store } from "@prisma/client";
 import { FC, useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { Check, ChevronsUpDown, PlusCircle, StoreIcon } from "lucide-react";
@@ -19,7 +20,6 @@ import {
   CommandSeparator,
 } from "@/components/ui/command";
 import { cn } from "@/lib/utils";
-import { Store } from "@prisma/client";
 import { Button } from "@/components/ui/button";
 import { useStoreModal } from "@/hook/use-store-modal";
 

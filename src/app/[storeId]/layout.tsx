@@ -3,10 +3,10 @@ import { redirect } from "next/navigation";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/dist/server";
 
 import prisma from "@/lib/prisma";
+import MainNav from "@/components/main-nav";
 import ThemeToggle from "@/components/theme-toggle";
 import StoreSwitcher from "@/components/store-switcher";
 import CurrentUserAvatar from "@/components/current-user-avatar";
-import MainNav from "@/components/main-nav";
 
 export default async function OverViewLayout({
   children,

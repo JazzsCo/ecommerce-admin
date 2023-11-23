@@ -1,41 +1,28 @@
 "use client";
 
-import { format } from "date-fns";
+import { FC } from "react";
 import { useParams, useRouter } from "next/navigation";
 
 import Heading from "@/components/heading";
+import ApiAlert from "@/components/api-alert";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { Billboard, Size } from "@prisma/client";
-import { FC } from "react";
-import {
-  BillboardColumnProps,
-  billboardColumn,
-} from "../column/billboard-column";
-import { DataTable } from "../ui/data-table";
-import ApiAlert from "../api-alert";
-import { SizeColumnProps, sizeColumn } from "../column/size-column";
+import { DataTable } from "@/components/ui/data-table";
+import { SizeColumnProps, sizeColumn } from "@/components/column/size-column";
 
 interface SizeClientProps {
-  items: Size[];
+  sizeColumnData: SizeColumnProps[];
 }
 
-const SizeClient: FC<SizeClientProps> = ({ items }) => {
+const SizeClient: FC<SizeClientProps> = ({ sizeColumnData }) => {
   const router = useRouter();
   const params = useParams();
-
-  const sizeColumnData: SizeColumnProps[] = items.map((item) => ({
-    id: item.id,
-    name: item.name,
-    price: item.value,
-    date: format(item.createdAt, "MMM do, y"),
-  }));
 
   return (
     <div className="p-4 px-6 space-y-3">
       <div className="flex items-center justify-between">
         <Heading
-          title={`Size (${items.length})`}
+          title={`Size (${sizeColumnData.length})`}
           description="Manage yours size 🫤"
         />
         <Button

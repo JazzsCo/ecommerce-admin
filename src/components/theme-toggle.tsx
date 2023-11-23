@@ -1,16 +1,15 @@
 "use client";
 
-import { MoonStar, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
+import { MoonStar, Sun } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Moon_Dance } from "next/font/google";
+import { Button } from "@/components/ui/button";
 
 const ThemeToggle = () => {
   const { setTheme } = useTheme();

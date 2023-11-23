@@ -1,14 +1,14 @@
 "use client";
 
 import * as z from "zod";
+import axios from "axios";
 import { FC, useState } from "react";
+import { Trash } from "lucide-react";
 import { Store } from "@prisma/client";
 import { useForm } from "react-hook-form";
 import { useParams, useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import Heading from "@/components/heading";
-import ApiAlert from "@/components/api-alert";
 import {
   Form,
   FormControl,
@@ -17,23 +17,13 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { useOrigin } from "@/hook/use-origin";
+import Heading from "@/components/heading";
 import { Input } from "@/components/ui/input";
+import ApiAlert from "@/components/api-alert";
+import { useOrigin } from "@/hook/use-origin";
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import axios from "axios";
-import {
-  Circle,
-  CircleDashed,
-  CircleDot,
-  CircleEllipsis,
-  CircleEqual,
-  CircleSlash,
-  Clipboard,
-  LucideCircleDashed,
-  Trash,
-} from "lucide-react";
 import DeleteModal from "@/components/delete-modal";
+import { Separator } from "@/components/ui/separator";
 
 interface SettingFormProps {
   initialData: Store | null;

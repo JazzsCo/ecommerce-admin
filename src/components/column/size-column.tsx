@@ -1,7 +1,8 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import SizeCellAction from "../celll-action/size-cell-action";
+
+import SizeCellAction from "@/components/celll-action/size-cell-action";
 
 export type SizeColumnProps = {
   id: string;

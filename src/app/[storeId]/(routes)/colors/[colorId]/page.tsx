@@ -1,5 +1,4 @@
 import prisma from "@/lib/prisma";
-
 import ColorForm from "@/components/form/color-form";
 
 const ColorByIDPage = async ({

@@ -1,5 +1,4 @@
 import prisma from "@/lib/prisma";
-
 import BillboardClient from "@/components/client/billboard-client";
 
 const BillboardsPage = async ({ params }: { params: { storeId: string } }) => {

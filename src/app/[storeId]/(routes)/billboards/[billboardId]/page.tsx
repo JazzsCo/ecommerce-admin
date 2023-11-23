@@ -1,5 +1,4 @@
 import prisma from "@/lib/prisma";
-
 import BillboardForm from "@/components/form/billboard-form";
 
 const BillboardByIDPage = async ({

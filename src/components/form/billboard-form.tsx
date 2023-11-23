@@ -1,14 +1,14 @@
 "use client";
 
 import * as z from "zod";
-import { FC, useEffect, useState } from "react";
-import { Billboard, Store } from "@prisma/client";
+import axios from "axios";
+import { Trash } from "lucide-react";
 import { useForm } from "react-hook-form";
-import { useParams, useRouter } from "next/navigation";
+import { Billboard } from "@prisma/client";
+import { FC, useEffect, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useParams, useRouter } from "next/navigation";
 
-import Heading from "@/components/heading";
-import ApiAlert from "@/components/api-alert";
 import {
   Form,
   FormControl,
@@ -17,14 +17,12 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { useOrigin } from "@/hook/use-origin";
+import Heading from "@/components/heading";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import DeleteModal from "@/components/delete-modal";
 import { Separator } from "@/components/ui/separator";
-import { Trash } from "lucide-react";
-import ImageUpload from "../ui/image-upload";
-import axios from "axios";
-import DeleteModal from "../delete-modal";
+import ImageUpload from "@/components/ui/image-upload";
 
 interface BillboardFormProps {
   initialData: Billboard | null;

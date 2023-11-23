@@ -1,15 +1,15 @@
 "use client";
 
 import * as z from "zod";
+import axios from "axios";
+import { Trash } from "lucide-react";
+import { Color } from "@prisma/client";
+import { useForm } from "react-hook-form";
 import { TwitterPicker } from "react-color";
 import { FC, useEffect, useState } from "react";
-import { Color, Store } from "@prisma/client";
-import { useForm } from "react-hook-form";
-import { useParams, useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useParams, useRouter } from "next/navigation";
 
-import Heading from "@/components/heading";
-import ApiAlert from "@/components/api-alert";
 import {
   Form,
   FormControl,
@@ -18,13 +18,11 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { useOrigin } from "@/hook/use-origin";
+import Heading from "@/components/heading";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import DeleteModal from "@/components/delete-modal";
 import { Separator } from "@/components/ui/separator";
-import { Trash } from "lucide-react";
-import axios from "axios";
-import DeleteModal from "../delete-modal";
 
 interface ColorFormProps {
   initialData: Color | null;
@@ -38,7 +36,6 @@ const formSchema = z.object({
 const ColorForm: FC<ColorFormProps> = ({ initialData }) => {
   const router = useRouter();
   const params = useParams();
-  const origin = useOrigin();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),

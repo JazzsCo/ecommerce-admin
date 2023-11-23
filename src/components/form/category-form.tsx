@@ -1,14 +1,14 @@
 "use client";
 
 import * as z from "zod";
-import { FC, useEffect, useState } from "react";
-import { Billboard, Category, Store } from "@prisma/client";
+import axios from "axios";
+import { Trash } from "lucide-react";
 import { useForm } from "react-hook-form";
-import { useParams, useRouter } from "next/navigation";
+import { FC, useEffect, useState } from "react";
+import { Billboard, Category } from "@prisma/client";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useParams, useRouter } from "next/navigation";
 
-import Heading from "@/components/heading";
-import ApiAlert from "@/components/api-alert";
 import {
   Form,
   FormControl,
@@ -17,14 +17,12 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { useOrigin } from "@/hook/use-origin";
+import Heading from "@/components/heading";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import Select from "@/components/select-component";
+import DeleteModal from "@/components/delete-modal";
 import { Separator } from "@/components/ui/separator";
-import { Trash } from "lucide-react";
-import axios from "axios";
-import DeleteModal from "../delete-modal";
-import Select from "../select-component";
 
 interface CategoryFormProps {
   initialData: Category | null;
@@ -38,7 +36,6 @@ const formSchema = z.object({
 
 const CategoryForm: FC<CategoryFormProps> = ({ initialData, billboards }) => {
   const router = useRouter();
-  const origin = useOrigin();
   const params = useParams();
 
   const form = useForm<z.infer<typeof formSchema>>({

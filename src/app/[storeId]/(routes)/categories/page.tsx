@@ -1,6 +1,6 @@
-import prisma from "@/lib/prisma";
 import { format } from "date-fns";
 
+import prisma from "@/lib/prisma";
 import CategoryClient from "@/components/client/category-client";
 import { CategoryColumnProps } from "@/components/column/category-column";
 

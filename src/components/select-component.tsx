@@ -1,16 +1,16 @@
 "use client";
 
+import { FC } from "react";
+import { Billboard, Category, Color, Size } from "@prisma/client";
+
 import {
   Select as SelectDemeo,
   SelectTrigger,
   SelectValue,
   SelectContent,
   SelectGroup,
-  SelectLabel,
   SelectItem,
 } from "@/components/ui/select";
-import { Billboard, Category, Color, Size } from "@prisma/client";
-import { FC } from "react";
 
 interface SelectProps {
   value: string;

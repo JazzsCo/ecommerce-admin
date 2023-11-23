@@ -1,5 +1,4 @@
 import prisma from "@/lib/prisma";
-
 import CategoryForm from "@/components/form/category-form";
 
 const CategoryByIDPage = async ({

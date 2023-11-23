@@ -1,10 +1,11 @@
 "use client";
 
 import { FC } from "react";
-import { Badge, BadgeProps } from "./ui/badge";
-import { Alert, AlertDescription, AlertTitle } from "./ui/alert";
 import { Copy, ServerIcon } from "lucide-react";
-import { Button } from "./ui/button";
+
+import { Button } from "@/components/ui/button";
+import { Badge, BadgeProps } from "@/components/ui/badge";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 interface ApiAlertProps {
   title: string;

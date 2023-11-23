@@ -4,13 +4,13 @@ import { FC } from "react";
 import { LogOutIcon } from "lucide-react";
 import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs/dist/components";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 interface CurrentUserAvatarProps {
   user: any;

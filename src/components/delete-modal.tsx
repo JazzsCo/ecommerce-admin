@@ -1,6 +1,7 @@
+import { FC } from "react";
+
+import Modal from "@/components/ui/modal";
 import { Button } from "@/components/ui/button";
-import Modal from "./ui/modal";
-import { FC, useState } from "react";
 
 interface DeleteModalProps {
   title: string;

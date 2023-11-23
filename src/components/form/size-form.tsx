@@ -1,14 +1,14 @@
 "use client";
 
 import * as z from "zod";
-import { FC, useEffect, useState } from "react";
-import { Size, Store } from "@prisma/client";
+import axios from "axios";
+import { Trash } from "lucide-react";
+import { Size } from "@prisma/client";
 import { useForm } from "react-hook-form";
-import { useParams, useRouter } from "next/navigation";
+import { FC, useEffect, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useParams, useRouter } from "next/navigation";
 
-import Heading from "@/components/heading";
-import ApiAlert from "@/components/api-alert";
 import {
   Form,
   FormControl,
@@ -17,13 +17,11 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { useOrigin } from "@/hook/use-origin";
+import Heading from "@/components/heading";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import DeleteModal from "@/components/delete-modal";
 import { Separator } from "@/components/ui/separator";
-import { Trash } from "lucide-react";
-import axios from "axios";
-import DeleteModal from "../delete-modal";
 
 interface SizeFormProps {
   initialData: Size | null;
@@ -36,7 +34,6 @@ const formSchema = z.object({
 
 const SizeForm: FC<SizeFormProps> = ({ initialData }) => {
   const router = useRouter();
-  const origin = useOrigin();
   const params = useParams();
 
   const form = useForm<z.infer<typeof formSchema>>({

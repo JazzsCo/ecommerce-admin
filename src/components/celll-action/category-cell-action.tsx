@@ -1,20 +1,20 @@
 "use client";
 
-import { FC, useState } from "react";
-import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
-import { useParams, useRouter } from "next/navigation";
 import axios from "axios";
-import { BillboardColumnProps } from "../column/billboard-column";
-import DeleteModal from "../delete-modal";
+import { FC, useState } from "react";
+import { useParams, useRouter } from "next/navigation";
+import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
-import { Button } from "../ui/button";
-import { CategoryColumnProps } from "../column/category-column";
+} from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button";
+import DeleteModal from "@/components/delete-modal";
+import { CategoryColumnProps } from "@/components/column/category-column";
 
 interface CategoryCellActionProps {
   item: CategoryColumnProps;
