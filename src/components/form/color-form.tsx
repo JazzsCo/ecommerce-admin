@@ -1,6 +1,7 @@
 "use client";
 
 import * as z from "zod";
+import { TwitterPicker } from "react-color";
 import { FC, useEffect, useState } from "react";
 import { Color, Store } from "@prisma/client";
 import { useForm } from "react-hook-form";
@@ -58,27 +59,29 @@ const ColorForm: FC<ColorFormProps> = ({ initialData }) => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      if (!initialData) {
-        const res = await axios.post("/api/" + params.storeId + "/colors", {
-          name: values.name,
-          value: values.value,
-        });
+      // if (!initialData) {
+      //   const res = await axios.post("/api/" + params.storeId + "/colors", {
+      //     name: values.name,
+      //     value: values.value,
+      //   });
 
-        // TODO: SUCCESS MESSAGE
-        router.push("/" + params.storeId + "/colors");
-      } else {
-        console.log("first");
-        const res = await axios.patch(
-          "/api/" + params.storeId + "/colors/" + initialData.id,
-          {
-            name: values.name,
-            value: values.value,
-          }
-        );
+      //   // TODO: SUCCESS MESSAGE
+      //   router.push("/" + params.storeId + "/colors");
+      // } else {
+      //   console.log("first");
+      //   const res = await axios.patch(
+      //     "/api/" + params.storeId + "/colors/" + initialData.id,
+      //     {
+      //       name: values.name,
+      //       value: values.value,
+      //     }
+      //   );
 
-        // TODO: SUCCESS MESSAGE
-        router.push("/" + params.storeId + "/colors");
-      }
+      //   // TODO: SUCCESS MESSAGE
+      //   router.push("/" + params.storeId + "/colors");
+      // }
+
+      console.log("VALUES", values);
     } catch (error) {
       console.log("ERROR", error);
     } finally {
@@ -171,14 +174,25 @@ const ColorForm: FC<ColorFormProps> = ({ initialData }) => {
                 control={form.control}
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Price</FormLabel>
+                    <FormLabel>Color</FormLabel>
                     <FormControl>
-                      <Input
-                        {...field}
-                        type="number"
-                        disabled={loading}
-                        placeholder="Price"
-                      />
+                      <>
+                        <div className="mb-2 flex space-x-2">
+                          <div
+                            className="p-2 w-7 h-7 rounded-full"
+                            style={{
+                              background: field.value,
+                            }}
+                          />
+
+                          <h3>{field.value}</h3>
+                        </div>
+                        <TwitterPicker
+                          color={field.value}
+                          onChange={(value) => field.onChange(value.hex)}
+                          triangle="hide"
+                        />
+                      </>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
