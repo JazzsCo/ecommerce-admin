@@ -17,7 +17,19 @@ export const colorColumn: ColumnDef<ColorColumnProps>[] = [
   },
   {
     accessorKey: "value",
-    header: "Price",
+    header: "Color",
+    cell: ({ row }) => (
+      <div className="flex items-center space-x-2">
+        <div
+          className="p-2 w-7 h-7 rounded-full"
+          style={{
+            background: row.original.value,
+          }}
+        />
+
+        <h3>{row.original.value}</h3>
+      </div>
+    ),
   },
   {
     accessorKey: "date",

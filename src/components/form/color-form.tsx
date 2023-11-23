@@ -59,27 +59,27 @@ const ColorForm: FC<ColorFormProps> = ({ initialData }) => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      // if (!initialData) {
-      //   const res = await axios.post("/api/" + params.storeId + "/colors", {
-      //     name: values.name,
-      //     value: values.value,
-      //   });
+      if (!initialData) {
+        const res = await axios.post("/api/" + params.storeId + "/colors", {
+          name: values.name,
+          value: values.value,
+        });
 
-      //   // TODO: SUCCESS MESSAGE
-      //   router.push("/" + params.storeId + "/colors");
-      // } else {
-      //   console.log("first");
-      //   const res = await axios.patch(
-      //     "/api/" + params.storeId + "/colors/" + initialData.id,
-      //     {
-      //       name: values.name,
-      //       value: values.value,
-      //     }
-      //   );
+        // TODO: SUCCESS MESSAGE
+        router.push("/" + params.storeId + "/colors");
+      } else {
+        console.log("first");
+        const res = await axios.patch(
+          "/api/" + params.storeId + "/colors/" + initialData.id,
+          {
+            name: values.name,
+            value: values.value,
+          }
+        );
 
-      //   // TODO: SUCCESS MESSAGE
-      //   router.push("/" + params.storeId + "/colors");
-      // }
+        // TODO: SUCCESS MESSAGE
+        router.push("/" + params.storeId + "/colors");
+      }
 
       console.log("VALUES", values);
     } catch (error) {
@@ -177,7 +177,7 @@ const ColorForm: FC<ColorFormProps> = ({ initialData }) => {
                     <FormLabel>Color</FormLabel>
                     <FormControl>
                       <>
-                        <div className="mb-2 flex space-x-2">
+                        <div className="mb-2 flex items-center space-x-2">
                           <div
                             className="p-2 w-7 h-7 rounded-full"
                             style={{
