@@ -8,6 +8,7 @@ import {
   Settings,
   Shield,
   Webhook,
+  Projector,
 } from "lucide-react";
 import { useParams, usePathname } from "next/navigation";
 
@@ -58,6 +59,12 @@ const MobileSideBar = () => {
       name: "Colors",
       href: "/" + params.storeId + "/colors",
       active: pathname === "/" + params.storeId + "/colors",
+    },
+    {
+      icon: Projector,
+      name: "Products",
+      href: "/" + params.storeId + "/products",
+      active: pathname === "/" + params.storeId + "/products",
     },
     {
       icon: Settings,
