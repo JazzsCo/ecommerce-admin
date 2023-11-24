@@ -147,24 +147,26 @@ const ColorForm: FC<ColorFormProps> = ({ initialData }) => {
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
-            <div className="grid grid-cols-3 lg:grid-cols-5 gap-6">
-              <FormField
-                name="name"
-                control={form.control}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Name</FormLabel>
-                    <FormControl>
-                      <Input
-                        {...field}
-                        disabled={loading}
-                        placeholder="Color name"
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+            <div className="flex flex-col space-y-3">
+              <div className="grid gap-6 max-w-[250px]">
+                <FormField
+                  name="name"
+                  control={form.control}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Name</FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          disabled={loading}
+                          placeholder="Color name"
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
 
               <FormField
                 name="value"
@@ -174,20 +176,31 @@ const ColorForm: FC<ColorFormProps> = ({ initialData }) => {
                     <FormLabel>Color</FormLabel>
                     <FormControl>
                       <>
-                        <div className="mb-2 flex items-center space-x-2">
-                          <div
-                            className="p-2 w-7 h-7 rounded-full"
-                            style={{
-                              background: field.value,
-                            }}
-                          />
+                        {field.value && (
+                          <div className="flex items-center space-x-2">
+                            <div
+                              className="p-2 w-7 h-7 rounded-full"
+                              style={{
+                                background: field.value,
+                              }}
+                            />
 
-                          <h3>{field.value}</h3>
-                        </div>
+                            <h3 className="px-2 py-0.5 bg-muted rounded text-sm -tracking-tighter">
+                              {field.value}
+                            </h3>
+                          </div>
+                        )}
                         <TwitterPicker
                           color={field.value}
                           onChange={(value) => field.onChange(value.hex)}
                           triangle="hide"
+                          styles={{
+                            default: {
+                              body: {
+                                marginTop: 10,
+                              },
+                            },
+                          }}
                         />
                       </>
                     </FormControl>

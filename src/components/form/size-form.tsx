@@ -142,7 +142,7 @@ const SizeForm: FC<SizeFormProps> = ({ initialData }) => {
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
-            <div className="grid grid-cols-3 lg:grid-cols-5 gap-6">
+            <div className="grid gap-6 max-w-[250px]">
               <FormField
                 name="name"
                 control={form.control}
@@ -180,7 +180,7 @@ const SizeForm: FC<SizeFormProps> = ({ initialData }) => {
                 )}
               />
             </div>
-            <div className="flex items-center justify-end">
+            <div className="mt-3 flex items-center justify-end">
               <Button type="submit" size="lg" variant="secondary">
                 {action}
               </Button>

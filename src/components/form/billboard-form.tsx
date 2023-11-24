@@ -144,36 +144,39 @@ const BillboardForm: FC<BillboardFormProps> = ({ initialData }) => {
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
-            <FormField
-              name="imageUrl"
-              control={form.control}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Image Background</FormLabel>
-                  <FormControl>
-                    <ImageUpload
-                      images={field.value ? [field.value] : []}
-                      disable={loading}
-                      onChange={(url) => field.onChange(url)}
-                      onRemove={() => field.onChange("")}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <div className="grid grid-cols-3 lg:grid-cols-5 gap-6">
+            <div className="flex flex-col space-y-3">
+              <div className="grid gap-6 max-w-[250px]">
+                <FormField
+                  name="name"
+                  control={form.control}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Name</FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          disabled={loading}
+                          placeholder="Billboard name"
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+
               <FormField
-                name="name"
+                name="imageUrl"
                 control={form.control}
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Name</FormLabel>
+                    <FormLabel>Image Background</FormLabel>
                     <FormControl>
-                      <Input
-                        {...field}
-                        disabled={loading}
-                        placeholder="Billboard name"
+                      <ImageUpload
+                        images={field.value ? [field.value] : []}
+                        disable={loading}
+                        onChange={(url) => field.onChange(url)}
+                        onRemove={() => field.onChange("")}
                       />
                     </FormControl>
                     <FormMessage />
@@ -181,7 +184,8 @@ const BillboardForm: FC<BillboardFormProps> = ({ initialData }) => {
                 )}
               />
             </div>
-            <div className="flex items-center justify-end">
+
+            <div className="mt-3 flex items-center justify-end">
               <Button
                 type="submit"
                 size="lg"

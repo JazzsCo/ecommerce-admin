@@ -1,7 +1,7 @@
 "use client";
 
-import { FC } from "react";
-import { Copy, ServerIcon } from "lucide-react";
+import { FC, useState } from "react";
+import { Check, Copy, ServerIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Badge, BadgeProps } from "@/components/ui/badge";
@@ -24,8 +24,18 @@ const textMap: Record<ApiAlertProps["role"], BadgeProps["variant"]> = {
 };
 
 const ApiAlert: FC<ApiAlertProps> = ({ title, description, role }) => {
+  const [isCopy, setIsCopy] = useState(false);
+
   const onCopy = () => {
     navigator.clipboard.writeText(description);
+
+    setTimeout(() => {
+      setIsCopy(true);
+    }, 100);
+
+    setTimeout(() => {
+      setIsCopy(false);
+    }, 1000);
   };
 
   return (
@@ -40,7 +50,11 @@ const ApiAlert: FC<ApiAlertProps> = ({ title, description, role }) => {
           {description}
         </code>
         <Button type="button" variant="outline" size="icon" onClick={onCopy}>
-          <Copy className="w-4 h-4" />
+          {isCopy ? (
+            <Check className="w-4 h-4" />
+          ) : (
+            <Copy className="w-4 h-4" />
+          )}
         </Button>
       </AlertDescription>
     </Alert>
