@@ -43,7 +43,7 @@ const MainNav = () => {
   ];
 
   return (
-    <div className="flex items-center space-x-2 lg:space-x-4">
+    <div className="hidden md:flex items-center space-x-2 lg:space-x-4">
       {routes.map((route) => (
         <Link
           key={route.href}
