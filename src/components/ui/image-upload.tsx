@@ -8,6 +8,7 @@ import { CldUploadWidget } from "next-cloudinary";
 import { Button } from "@/components/ui/button";
 
 interface ImageUploadProps {
+  label: string;
   images: string[];
   disable: boolean;
   onChange: (value: string) => void;
@@ -15,6 +16,7 @@ interface ImageUploadProps {
 }
 
 const ImageUpload: FC<ImageUploadProps> = ({
+  label,
   images,
   disable,
   onChange,
@@ -35,7 +37,7 @@ const ImageUpload: FC<ImageUploadProps> = ({
   };
 
   return (
-    <div>
+    <>
       <div className="mb-4 flex items-center gap-4">
         {images.map((image) => (
           <div
@@ -65,11 +67,11 @@ const ImageUpload: FC<ImageUploadProps> = ({
             onClick={() => open()}
           >
             <ImagePlus className="h-4 w-4 mr-2" />
-            Upload an Image
+            {label}
           </Button>
         )}
       </CldUploadWidget>
-    </div>
+    </>
   );
 };
 

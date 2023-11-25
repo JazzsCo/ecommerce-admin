@@ -12,6 +12,7 @@ import { useParams, useRouter } from "next/navigation";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -23,6 +24,8 @@ import { Button } from "@/components/ui/button";
 import Select from "@/components/select-component";
 import DeleteModal from "@/components/delete-modal";
 import { Separator } from "@/components/ui/separator";
+import { Checkbox } from "../ui/checkbox";
+import ImageUpload from "../ui/image-upload";
 
 interface ProductFormProps {
   initialData: Product | null;
@@ -176,18 +179,20 @@ const ProductForm: FC<ProductFormProps> = ({
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
-            <div className="grid gap-6 max-w-[250px]">
+            <div className="flex flex-col space-y-5">
               <FormField
                 name="name"
                 control={form.control}
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Name</FormLabel>
+                    <FormLabel>Product Images</FormLabel>
                     <FormControl>
-                      <Input
-                        {...field}
-                        disabled={loading}
-                        placeholder="Category name"
+                      <ImageUpload
+                        label="Upload Images"
+                        images={field.value ? [field.value] : []}
+                        disable={loading}
+                        onChange={(url) => field.onChange(url)}
+                        onRemove={() => field.onChange("")}
                       />
                     </FormControl>
                     <FormMessage />
@@ -195,25 +200,154 @@ const ProductForm: FC<ProductFormProps> = ({
                 )}
               />
 
-              <FormField
-                name="sizeId"
-                control={form.control}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Billboards</FormLabel>
-                    <FormControl>
-                      <Select
-                        value={field.value}
-                        disabled={loading}
-                        placeholder="Select a billboard 🫨"
-                        onChange={field.onChange}
-                        items={sizes}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-7 m-auto sm:m-0">
+                <div className="flex flex-col gap-6 max-w-[250px]">
+                  <FormField
+                    name="name"
+                    control={form.control}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Name</FormLabel>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            disabled={loading}
+                            placeholder="Category name"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    name="price"
+                    control={form.control}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Price</FormLabel>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            disabled={loading}
+                            placeholder="Price"
+                            type="number"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
+                <div className="grid gap-6 max-w-[250px]">
+                  <FormField
+                    name="sizeId"
+                    control={form.control}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Sizes</FormLabel>
+                        <FormControl>
+                          <Select
+                            value={field.value}
+                            disabled={loading}
+                            placeholder="Select a size 🐉"
+                            onChange={field.onChange}
+                            items={sizes}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    name="colorId"
+                    control={form.control}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Colors</FormLabel>
+                        <FormControl>
+                          <Select
+                            value={field.value}
+                            disabled={loading}
+                            placeholder="Select a color 🫨"
+                            onChange={field.onChange}
+                            items={colors}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    name="categoryId"
+                    control={form.control}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Categories</FormLabel>
+                        <FormControl>
+                          <Select
+                            value={field.value}
+                            disabled={loading}
+                            placeholder="Select a category 🫨"
+                            onChange={field.onChange}
+                            items={categories}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
+                <div className="grid gap-6 max-w-[250px]">
+                  <FormField
+                    name="isFeatured"
+                    control={form.control}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Featured</FormLabel>
+                        <div className="flex flex-row items-start space-x-3 space-y-0 rounded-md border dark:border-slate-800 p-4">
+                          <FormControl>
+                            <Checkbox
+                              checked={field.value}
+                              onCheckedChange={field.onChange}
+                            />
+                          </FormControl>
+                          <FormDescription>
+                            This action is to featured you product to the
+                            dashboard.
+                          </FormDescription>
+                        </div>
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    name="isArchived"
+                    control={form.control}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Archived</FormLabel>
+                        <div className="flex flex-row items-start space-x-3 space-y-0 rounded-md border dark:border-slate-800 p-4">
+                          <FormControl>
+                            <Checkbox
+                              checked={field.value}
+                              onCheckedChange={field.onChange}
+                            />
+                          </FormControl>
+                          <FormDescription>
+                            This action is to archived you product to the
+                            dashboard.
+                          </FormDescription>
+                        </div>
+                      </FormItem>
+                    )}
+                  />
+                </div>
+              </div>
             </div>
 
             <div className="mt-3 flex items-center justify-end">

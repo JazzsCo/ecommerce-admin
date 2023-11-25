@@ -173,6 +173,7 @@ const BillboardForm: FC<BillboardFormProps> = ({ initialData }) => {
                     <FormLabel>Image Background</FormLabel>
                     <FormControl>
                       <ImageUpload
+                        label="Upload an Image"
                         images={field.value ? [field.value] : []}
                         disable={loading}
                         onChange={(url) => field.onChange(url)}
