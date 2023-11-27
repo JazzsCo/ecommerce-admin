@@ -28,17 +28,20 @@ import { Checkbox } from "../ui/checkbox";
 import ImageUpload from "../ui/image-upload";
 
 interface ProductFormProps {
-  initialData: Product | null;
+  initialData:
+    | (Product & {
+        images: Image[];
+      })
+    | null;
   sizes: Size[];
   colors: Color[];
   categories: Category[];
-  //   images: Image[];
 }
 
 const formSchema = z.object({
   name: z.string().min(1),
   price: z.string().min(1),
-  //   imageUrl: z.string().min(1),
+  imageUrl: z.string().min(1).array(),
   isFeatured: z.boolean(),
   isArchived: z.boolean(),
   sizeId: z.string().min(1),
@@ -51,22 +54,33 @@ const ProductForm: FC<ProductFormProps> = ({
   sizes,
   colors,
   categories,
-  //   images,
 }) => {
   const router = useRouter();
   const params = useParams();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: initialData || {
-      name: "",
-      price: "",
-      isFeatured: true,
-      isArchived: false,
-      sizeId: "",
-      colorId: "",
-      categoryId: "",
-    },
+    defaultValues: initialData
+      ? {
+          name: initialData.name,
+          price: initialData.price,
+          imageUrl: initialData.images.map((image) => image.url),
+          isFeatured: initialData.isFeatured,
+          isArchived: initialData.isArchived,
+          sizeId: initialData.sizeId,
+          colorId: initialData.colorId,
+          categoryId: initialData.categoryId,
+        }
+      : {
+          name: "",
+          price: "",
+          imageUrl: [],
+          isFeatured: true,
+          isArchived: false,
+          sizeId: "",
+          colorId: "",
+          categoryId: "",
+        },
   });
 
   const loading = form.formState.isSubmitting;
@@ -84,15 +98,15 @@ const ProductForm: FC<ProductFormProps> = ({
         const res = await axios.post("/api/" + params.storeId + "/products", {
           name: values.name,
           price: values.price,
+          imageUrl: values.imageUrl,
           isFeatured: values.isFeatured,
           isArchived: values.isArchived,
           sizeId: values.sizeId,
           colorId: values.colorId,
           categoryId: values.categoryId,
         });
-
         // TODO: SUCCESS MESSAGE
-        router.push("/" + params.storeId + "/products");
+        // router.push("/" + params.storeId + "/products");
       } else {
         console.log("first");
         const res = await axios.patch(
@@ -100,6 +114,7 @@ const ProductForm: FC<ProductFormProps> = ({
           {
             name: values.name,
             price: values.price,
+            imageUrl: values.imageUrl,
             isFeatured: values.isFeatured,
             isArchived: values.isArchived,
             sizeId: values.sizeId,
@@ -107,7 +122,6 @@ const ProductForm: FC<ProductFormProps> = ({
             categoryId: values.categoryId,
           }
         );
-
         // TODO: SUCCESS MESSAGE
         router.push("/" + params.storeId + "/products");
       }
@@ -181,7 +195,7 @@ const ProductForm: FC<ProductFormProps> = ({
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <div className="flex flex-col space-y-5">
               <FormField
-                name="name"
+                name="imageUrl"
                 control={form.control}
                 render={({ field }) => (
                   <FormItem>
@@ -189,10 +203,18 @@ const ProductForm: FC<ProductFormProps> = ({
                     <FormControl>
                       <ImageUpload
                         label="Upload Images"
-                        images={field.value ? [field.value] : []}
+                        images={field.value}
                         disable={loading}
-                        onChange={(url) => field.onChange(url)}
-                        onRemove={() => field.onChange("")}
+                        onChange={(url) =>
+                          field.onChange([...field.value, url])
+                        }
+                        onRemove={(url) =>
+                          field.onChange([
+                            ...field.value.filter(
+                              (currentUrl) => currentUrl !== url
+                            ),
+                          ])
+                        }
                       />
                     </FormControl>
                     <FormMessage />
@@ -212,7 +234,7 @@ const ProductForm: FC<ProductFormProps> = ({
                           <Input
                             {...field}
                             disabled={loading}
-                            placeholder="Category name"
+                            placeholder="Product name"
                           />
                         </FormControl>
                         <FormMessage />
