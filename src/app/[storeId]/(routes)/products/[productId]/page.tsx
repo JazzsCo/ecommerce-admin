@@ -13,6 +13,12 @@ const ProductByIDPage = async ({
     },
   });
 
+  const image = await prisma.image.findMany({
+    where: {
+      productId: params.productId,
+    },
+  });
+
   const size = await prisma.size.findMany({
     where: {
       storeId: params.storeId,
@@ -44,6 +50,7 @@ const ProductByIDPage = async ({
     <div className="p-4 px-6">
       <ProductForm
         initialData={product}
+        image={image[0]}
         sizes={size}
         colors={color}
         categories={category}

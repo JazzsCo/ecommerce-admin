@@ -28,11 +28,8 @@ import { Checkbox } from "../ui/checkbox";
 import ImageUpload from "../ui/image-upload";
 
 interface ProductFormProps {
-  initialData:
-    | (Product & {
-        images: Image[];
-      })
-    | null;
+  initialData: Product | null;
+  image: Image;
   sizes: Size[];
   colors: Color[];
   categories: Category[];
@@ -51,6 +48,7 @@ const formSchema = z.object({
 
 const ProductForm: FC<ProductFormProps> = ({
   initialData,
+  image,
   sizes,
   colors,
   categories,
@@ -64,7 +62,7 @@ const ProductForm: FC<ProductFormProps> = ({
       ? {
           name: initialData.name,
           price: initialData.price,
-          imageUrl: initialData.images.map((image) => image.url),
+          imageUrl: [...image.url.map((url) => url)],
           isFeatured: initialData.isFeatured,
           isArchived: initialData.isArchived,
           sizeId: initialData.sizeId,
@@ -106,9 +104,8 @@ const ProductForm: FC<ProductFormProps> = ({
           categoryId: values.categoryId,
         });
         // TODO: SUCCESS MESSAGE
-        // router.push("/" + params.storeId + "/products");
+        router.push("/" + params.storeId + "/products");
       } else {
-        console.log("first");
         const res = await axios.patch(
           "/api/" + params.storeId + "/products/" + initialData.id,
           {
